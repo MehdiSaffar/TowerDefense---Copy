@@ -1,0 +1,434 @@
+{
+	"id": 1,
+    "filename": "Level1",
+    "grid": [
+        [
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL"
+        ],
+        [
+            "NORMAL",
+            "START",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "NORMAL"
+        ],
+        [
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "NORMAL"
+        ],
+        [
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "NORMAL"
+        ],
+        [
+            "NORMAL",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "NORMAL"
+        ],
+        [
+            "NORMAL",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL"
+        ],
+        [
+            "NORMAL",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "NORMAL"
+        ],
+        [
+            "NORMAL",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "NORMAL"
+        ],
+        [
+            "NORMAL",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "PATH",
+            "PATH",
+            "FINISH",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "NORMAL"
+        ],
+        [
+            "NORMAL",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "NORMAL"
+        ],
+        [
+            "NORMAL",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "NORMAL"
+        ],
+        [
+            "NORMAL",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "NORMAL"
+        ],
+        [
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL"
+        ]
+    ],
+    "waypoints": [
+        {
+            "x": 16.0,
+            "y": 1.0
+        },
+        {
+            "x": 16.0,
+            "y": 4.0
+        },
+        {
+            "x": 12.0,
+            "y": 4.0
+        },
+        {
+            "x": 12.0,
+            "y": 3.0
+        },
+        {
+            "x": 4.0,
+            "y": 3.0
+        },
+        {
+            "x": 4.0,
+            "y": 4.0
+        },
+        {
+            "x": 1.0,
+            "y": 4.0
+        },
+        {
+            "x": 1.0,
+            "y": 11.0
+        },
+        {
+            "x": 4.0,
+            "y": 11.0
+        },
+        {
+            "x": 4.0,
+            "y": 6.0
+        },
+        {
+            "x": 16.0,
+            "y": 6.0
+        },
+        {
+            "x": 16.0,
+            "y": 11.0
+        },
+        {
+            "x": 9.0,
+            "y": 11.0
+        },
+        {
+            "x": 9.0,
+            "y": 8.0,
+        },
+        {
+            "x": 12.0,
+            "y": 8.0
+        }
+    ],
+    "width": 18,
+    "length": 13,
+    "startPos": {
+        "x": 1.0,
+        "y": 1.0
+    },
+    "finishPos": {
+        "x": 12.0,
+        "y": 8.0
+    },
+    "towers": [
+		{
+			"position": {
+				"x": 2,
+				"y": 2
+			},
+			"type": "TURRET_2",
+			"upgradeLevel": 0,
+		}
+	],
+    "waves": {
+        "waves": [
+      {
+        "wavelets": [
+          {
+            "timeOffset": 0.0,
+            "enemiesCount": 20,
+            "spawnRate": 4.0,
+            "enemyType": "ENEMY_1"
+          },
+          {
+            "timeOffset": 2.0,
+            "enemiesCount": 2.0,
+            "spawnRate": 3.0,
+            "enemyType": "ENEMY_2"
+          },
+          {
+            "timeOffset": 5.0,
+            "enemiesCount": 2.0,
+            "spawnRate": 1.0,
+            "enemyType": "ENEMY_3"
+          }
+        ],
+        "duration": 5.0
+      },
+      {
+        "wavelets": [
+			{
+              "timeOffset": 5.0,
+              "enemiesCount": 4.0,
+              "spawnRate": 1.0,
+              "enemyType": "ENEMY_3"
+            },
+            {
+              "timeOffset": 0.0,
+              "enemiesCount": 50,
+              "spawnRate": 4.0,
+              "enemyType": "ENEMY_1"
+            },
+            {
+              "timeOffset": 2.0,
+              "enemiesCount": 10.0,
+              "spawnRate": 3.0,
+              "enemyType": "ENEMY_2"
+            },
+            {
+              "timeOffset": 8.0,
+              "enemiesCount": 40.0,
+              "spawnRate": 6.0,
+              "enemyType": "ENEMY_1"
+            }
+          ],
+          "duration": 5.0
+      },
+	  {
+        "wavelets": [
+			{
+              "timeOffset": 5.0,
+              "enemiesCount": 4.0,
+              "spawnRate": 1.0,
+              "enemyType": "ENEMY_3"
+            },
+            {
+              "timeOffset": 0.0,
+              "enemiesCount": 50,
+              "spawnRate": 4.0,
+              "enemyType": "ENEMY_1"
+            },
+            {
+              "timeOffset": 2.0,
+              "enemiesCount": 10.0,
+              "spawnRate": 3.0,
+              "enemyType": "ENEMY_2"
+            },
+            {
+              "timeOffset": 8.0,
+              "enemiesCount": 40.0,
+              "spawnRate": 6.0,
+              "enemyType": "ENEMY_1"
+            }
+          ],
+          "duration": 5.0
+      }
+        ]
+    },
+    "startingMoney": 450
+}

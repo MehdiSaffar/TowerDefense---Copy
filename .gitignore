@@ -1,0 +1,84 @@
+#For Mac developers
+1/2/iOS target/
+
+# Unity generated #
+# =============== #
+Temp/
+obj/
+Build
+Library/
+*.unity
+*.meta
+*.asset
+*.exr
+*.mat
+*.tga
+*.png
+*.jpg
+*.tiff
+*.psd
+*.prefab
+*.rb
+*.pdb
+*.resS
+*.tif
+*.flare
+*.ttf
+*.wav
+*.ogg
+*.mp3
+*.pdf
+stub.file
+*.chm
+*.chw
+*.htm
+*.css
+*.fbx
+*.blend
+*.mdb
+*.aspx
+*.browser
+*.config
+*.map
+*.ini
+*.resource
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+*.orig
+*.app
+*.exe
+*.*_data
+
+Build/iOS
+Build/android
+
+*.[od]
+
+*.apk
+*.zip
+*.dll
+*.html
+
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
