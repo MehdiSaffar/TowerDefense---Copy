@@ -71,7 +71,6 @@ public class SelectionManager : MonoBehaviour
     }
     private void Select(Tower tower)
     {
-        tower.GetComponent<BoxCollider>().enabled = false;
         foreach (var obj in tower.GetComponentsInChildren<Highlightable>())
             Camera.main.GetComponent<HighlightPostProcess>().AddObject(obj);
         tower.rangeGizmo.SetActive(true);
@@ -80,7 +79,6 @@ public class SelectionManager : MonoBehaviour
     }
     private void Deselect(Tower tower)
     {
-        tower.GetComponent<BoxCollider>().enabled = true;
         foreach (var obj in tower.GetComponentsInChildren<Highlightable>())
             Camera.main.GetComponent<HighlightPostProcess>().RemoveObject(obj);
         tower.rangeGizmo.SetActive(false);
@@ -102,6 +100,9 @@ public class SelectionManager : MonoBehaviour
     {
         GameManager.Fsm.Changed += Fsm_Changed;
         GameManager.LevelManager.LevelLoaded += Reset;
+        GUIManager.SelectionUI.TowerBuyClick += OnTowerBuyClick;
+        GUIManager.SelectionUI.SellClick += OnTowerSellClick;
+        GUIManager.SelectionUI.UpgradeClick += OnTowerUpgradeClick;
 
         UIScript = GUIManager.SelectionUI;
     }
@@ -124,16 +125,23 @@ public class SelectionManager : MonoBehaviour
     {
         SelectedTower.aimBehaviour = aimBehaviour;
     }
-    public void OnShopTowerClick(TowerType towerType)
+    public void OnTowerBuyClick(Vector2 pos, TowerType towerType)
     {
         int cost = GameManager.TowerManager.tower[towerType][0].prefab.GetComponent<Tower>().cost;
-        if (GameManager.Player.CanBuy(cost))
+        if (!GameManager.Player.CanBuy(cost))
         {
-            // We actually buy when we place the tower
-            SelectedTower = Instantiate(GameManager.TowerManager.tower[towerType][0].prefab).GetComponent<Tower>();
-            SelectedTower.enabled = false;
-            mode = SelectionMode.PlacingNewTower;
+            Debug.Log("Not enough funds to buy " + towerType.ToString());
+            return;
         }
+        if(!GameManager.LevelManager.IsAvailable(pos))
+        {
+            Debug.LogError("Cannot place " + towerType.ToString() + " on the brick!");
+            return;
+        }
+        GameManager.Player.Buy(cost);
+        SelectedTower = Instantiate(GameManager.TowerManager.tower[towerType][0].prefab).GetComponent<Tower>();
+        GameManager.LevelManager.AddTowerOnTile(pos, SelectedTower);
+        UIScript.Deselect();
     }
     public void OnTowerSellClick()
     {

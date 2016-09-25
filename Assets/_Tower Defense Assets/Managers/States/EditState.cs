@@ -17,8 +17,6 @@ public class EditState : MonoBehaviour
         GameManager.SoundManager.SetMusic(editLoop);
         GameManager.SoundManager.PlayMusic();
 
-        GUIManager.TowerSelectionPanel.TowerClick += GameManager.SelectionManager.OnShopTowerClick;
-
         GUIManager.TowerSelectionPanel.gameObject.SetActive(true);
         GUIManager.Money.gameObject.SetActive(true);
         playButton.gameObject.SetActive(true);
@@ -57,8 +55,6 @@ public class EditState : MonoBehaviour
         GameManager.SoundManager.StopMusic();
 
         // FIXME: Find solution to changing state while placing tower
-
-        GUIManager.TowerSelectionPanel.TowerClick -= GameManager.SelectionManager.OnShopTowerClick;
 
         playButton.gameObject.SetActive(false);
         playButton.onClick.RemoveListener(OnPlayClick);

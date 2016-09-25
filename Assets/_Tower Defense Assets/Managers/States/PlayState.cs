@@ -14,7 +14,6 @@ public class PlayState : MonoBehaviour
         GUIManager.Money.gameObject.SetActive(true);
         GUIManager.WaveIndicator.gameObject.SetActive(true);
 
-        GUIManager.TowerSelectionPanel.TowerClick += GameManager.SelectionManager.OnShopTowerClick;
         GUIManager.PauseButton.onClick.AddListener(OnPauseClick);
 
         EventManager.BaseDie += OnBaseDie;
@@ -26,7 +25,6 @@ public class PlayState : MonoBehaviour
     }
     public void Exit()
     {
-        GUIManager.TowerSelectionPanel.TowerClick -= GameManager.SelectionManager.OnShopTowerClick;
         GUIManager.PauseButton.onClick.RemoveListener(OnPauseClick);
 
         GUIManager.TowerSelectionPanel.gameObject.SetActive(false);
