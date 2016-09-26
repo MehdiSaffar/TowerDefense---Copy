@@ -13,14 +13,14 @@ public class SelectionUIScript : MonoBehaviour {
     public event OnSellClick SellClick;
     public event OnAimBehaviourClick AimBehaviourClick;
 
-    public void TriggerBuyClick(int towerType)
+    public void TriggerBuyClick(TowerType towerType)
     {
         if (TowerBuyClick != null)
         {
             Brick brick = currentObject.GetComponent<Brick>();
-            if(brick)
+            if (brick)
             {
-                TowerBuyClick(brick.internalPos, (TowerType)towerType);
+                TowerBuyClick(brick.internalPos, towerType);
             }
         }
     }
@@ -32,65 +32,75 @@ public class SelectionUIScript : MonoBehaviour {
     {
         if (UpgradeClick != null) UpgradeClick();
     }
-    public void TriggerAimBehaviourChange(int aimBehaviour)
+    public void TriggerAimBehaviourChange(Tower.AimBehaviour aimBehaviour)
     {
-        if (AimBehaviourClick != null) AimBehaviourClick((Tower.AimBehaviour)aimBehaviour);
+        if (AimBehaviourClick != null) AimBehaviourClick(aimBehaviour);
     }
 
     [Header("UI Objects")]
-    [SerializeField] private Button sellButton;
-    [SerializeField] private Button upgradeButton;
-    [SerializeField] private GameObject towers;
+    [SerializeField] private TowerSelectionUIScript towerSelectionUIScript;
+    [SerializeField] private BrickSelectionUIScript brickSelectionUIScript;
 
     [Header("For Debug ONLY")]
     [SerializeField] private GameObject currentObject;
-    public Camera cam;
-    public float objectScale = 1.0f;
-
+    [SerializeField] private float objectScale = 1.0f;
     [SerializeField] private Vector3 initialScale;
 
     void Awake()
     {
         initialScale = transform.localScale;
     }
+    void Start()
+    {
+        towerSelectionUIScript.AimBehaviourClick += TriggerAimBehaviourChange;
+        towerSelectionUIScript.SellClick += TriggerSellClick;
+        towerSelectionUIScript.UpgradeClick += TriggerUpgradeClick;
+
+        brickSelectionUIScript.TowerBuyClick += TriggerBuyClick;
+    }
+    void OnDestroy()
+    {
+        towerSelectionUIScript.AimBehaviourClick -= TriggerAimBehaviourChange;
+        towerSelectionUIScript.SellClick -= TriggerSellClick;
+        towerSelectionUIScript.UpgradeClick -= TriggerUpgradeClick;
+
+        brickSelectionUIScript.TowerBuyClick -= TriggerBuyClick;
+    }
+
     public void SetTower(Tower tower)
     {
-        if (tower)
-        {
-            if (currentObject)
-            {
-                Deselect();
-                return;
-            }
-            currentObject = tower.gameObject;
-            SetActiveRecursively(sellButton.gameObject, true);
-            SetActiveRecursively(upgradeButton.gameObject, true);
+        System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+        Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
 
-            CenterUIOnObject();
-        }
+        currentObject = tower.gameObject;
+        brickSelectionUIScript.Hide();
+        towerSelectionUIScript.Show(tower);
     }
     public void SetBrick(Brick brick)
     {
-        if(brick)
+        System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+        Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
+
+        if (GameManager.LevelManager.IsAvailable(brick.internalPos))
         {
-            if (currentObject)
-            {
-                Deselect();
-                return;
-            }
             currentObject = brick.gameObject;
-            SetActiveRecursively(towers, true);
-            CenterUIOnObject();
+            towerSelectionUIScript.Hide();
+            brickSelectionUIScript.Show();
         }
     }
-
+    public void Deselect()
+    {
+        currentObject = null;
+        towerSelectionUIScript.Hide();
+        brickSelectionUIScript.Hide();
+    }
 
     void LateUpdate()
     {
         if (!currentObject) return;
         CenterUIOnObject();
     }
-    void CenterUIOnObject()
+    private void CenterUIOnObject()
     {
         float dist = (Camera.main.transform.position - currentObject.transform.position).magnitude;
         transform.localScale = initialScale * 1f/dist * objectScale;
@@ -99,18 +109,4 @@ public class SelectionUIScript : MonoBehaviour {
         transform.position = Camera.main.WorldToScreenPoint(currentObject.transform.position);
     }
 
-    public void Deselect()
-    {
-        currentObject = null;
-        SetActiveRecursively(gameObject, false);
-    }
-
-    private void SetActiveRecursively(GameObject obj, bool active)
-    {
-        obj.SetActive(active);
-        for (int i = 0; i < obj.transform.childCount; i++)
-        {
-            SetActiveRecursively(obj.transform.GetChild(i).gameObject, active);
-        }
-    }
 }

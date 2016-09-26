@@ -115,6 +115,16 @@ public class GameManager : MonoBehaviour
     public LevelSelectState levelSelectState;
 
 
+    // FOR DEBUG ONLY
+    System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace();
+    public static System.Diagnostics.StackTrace StackTrace
+    {
+        get
+        {
+            return instance.stackTrace;
+        }
+    }
+
     public void Awake()
     {
         // Making sure there is exactly one instance of GameManager

@@ -5,7 +5,8 @@ using System;
 
 public class SelectionManager : MonoBehaviour
 {
-    [HideInInspector] public SelectionManager instance = null;
+    [HideInInspector]
+    public SelectionManager instance = null;
     private SelectionUIScript UIScript;
 
     public enum SelectionMode
@@ -24,7 +25,7 @@ public class SelectionManager : MonoBehaviour
 
     private Tower selectedTower;
     private Brick selectedBrick;
-    private GameObject lastClickedDown;
+    private GameObject clickedDown;
     private GameObject clickedUp;
 
     private Tower SelectedTower
@@ -43,7 +44,7 @@ public class SelectionManager : MonoBehaviour
             else if (selectedTower != null && value != null && value != selectedTower)
             {
                 Deselect(selectedTower);
-                if(mode == SelectionMode.PlacingNewTower)
+                if (mode == SelectionMode.PlacingNewTower)
                 {
                     Destroy(selectedTower.gameObject);
                 }
@@ -53,7 +54,7 @@ public class SelectionManager : MonoBehaviour
             else if (selectedTower == null && value != null)
             {
                 selectedTower = value;
-                if(mode == SelectionMode.PlacingNewTower) selectedTower.enabled = false;
+                if (mode == SelectionMode.PlacingNewTower) selectedTower.enabled = false;
                 Select(selectedTower);
             }
         }
@@ -74,7 +75,6 @@ public class SelectionManager : MonoBehaviour
         foreach (var obj in tower.GetComponentsInChildren<Highlightable>())
             Camera.main.GetComponent<HighlightPostProcess>().AddObject(obj);
         tower.rangeGizmo.SetActive(true);
-        UIScript.gameObject.SetActive(true);
         UIScript.SetTower(tower);
     }
     private void Deselect(Tower tower)
@@ -82,7 +82,15 @@ public class SelectionManager : MonoBehaviour
         foreach (var obj in tower.GetComponentsInChildren<Highlightable>())
             Camera.main.GetComponent<HighlightPostProcess>().RemoveObject(obj);
         tower.rangeGizmo.SetActive(false);
-        UIScript.gameObject.SetActive(false);
+        UIScript.Deselect();
+    }
+    private void Select(Brick brick)
+    {
+        UIScript.SetBrick(brick);
+    }
+    private void Deselect(Brick brick)
+    {
+        UIScript.Deselect();
     }
     void Awake()
     {
@@ -100,11 +108,11 @@ public class SelectionManager : MonoBehaviour
     {
         GameManager.Fsm.Changed += Fsm_Changed;
         GameManager.LevelManager.LevelLoaded += Reset;
-        GUIManager.SelectionUI.TowerBuyClick += OnTowerBuyClick;
-        GUIManager.SelectionUI.SellClick += OnTowerSellClick;
-        GUIManager.SelectionUI.UpgradeClick += OnTowerUpgradeClick;
 
         UIScript = GUIManager.SelectionUI;
+        UIScript.TowerBuyClick += OnTowerBuyClick;
+        UIScript.SellClick += OnTowerSellClick;
+        UIScript.UpgradeClick += OnTowerUpgradeClick;
     }
     private void Reset()
     {
@@ -120,76 +128,104 @@ public class SelectionManager : MonoBehaviour
     {
         enabled = state == GameManager.States.Edit || state == GameManager.States.Play;
     }
+
     //--------- Events ----------//
     public void OnAimBehaviourClick(Tower.AimBehaviour aimBehaviour)
     {
+        System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+        Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
+
         SelectedTower.aimBehaviour = aimBehaviour;
     }
     public void OnTowerBuyClick(Vector2 pos, TowerType towerType)
     {
+        System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+        Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
+
         int cost = GameManager.TowerManager.tower[towerType][0].prefab.GetComponent<Tower>().cost;
         if (!GameManager.Player.CanBuy(cost))
         {
             Debug.Log("Not enough funds to buy " + towerType.ToString());
             return;
         }
-        if(!GameManager.LevelManager.IsAvailable(pos))
+        if (!GameManager.LevelManager.IsAvailable(pos))
         {
             Debug.LogError("Cannot place " + towerType.ToString() + " on the brick!");
             return;
         }
         GameManager.Player.Buy(cost);
-        SelectedTower = Instantiate(GameManager.TowerManager.tower[towerType][0].prefab).GetComponent<Tower>();
+        selectedTower = Instantiate(GameManager.TowerManager.tower[towerType][0].prefab).GetComponent<Tower>();
         GameManager.LevelManager.AddTowerOnTile(pos, SelectedTower);
-        UIScript.Deselect();
+
+        Select(SelectedTower);
     }
     public void OnTowerSellClick()
     {
+        System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+        Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
+
         GameManager.Player.Money += SelectedTower.GetSellPrice();
         GameManager.LevelManager.DetachTowerFromTile(selectedTower);
+
         Deselect(selectedTower);
         Destroy(selectedTower.gameObject);
+
         selectedTower = null;
+        selectedBrick = null;
+
     }
     public void OnTowerUpgradeClick()
     {
+        System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+        Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
+
         Tower upgradedTower = SelectedTower.GetNextUpgrade();
-        if(upgradedTower != null)
-        {
-            GameManager.SoundManager.RandomizeFx(onUpgrade);
-            mode = SelectionMode.Normal;
-            Tower oldTower = SelectedTower;
-            SelectedTower = upgradedTower;
-            Destroy(oldTower.gameObject);
-        }
-        else
+        if (!upgradedTower)
         {
             GameManager.SoundManager.RandomizeFx(onError);
+            return;
         }
+
+        GameManager.SoundManager.RandomizeFx(onUpgrade);
+        Tower oldTower = SelectedTower;
+        Select(upgradedTower);
+        SelectedTower = upgradedTower;
+
+        Destroy(oldTower.gameObject);
     }
-    private void OnEmptyTileClick(Brick brick)
-    {
-        SelectedBrick = brick;
-        UIScript.gameObject.SetActive(true);
-        UIScript.SetBrick(brick);
-    }
+
     private void OnTowerClick(Tower tower)
     {
+        System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+        Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
+
+        if (tower == null) Debug.Log("Weird");
+        Select(tower);
         SelectedTower = tower;
-        UIScript.gameObject.SetActive(true);
-        UIScript.SetTower(tower);
     }
-    private void OnBrickClick(Brick selectedBrick)
+    private void OnBrickClick(Brick brick)
     {
-        SelectedBrick = selectedBrick;
-        UIScript.gameObject.SetActive(true);
-        UIScript.SetBrick(SelectedBrick);
+        System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+        Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
+
+        if (brick == null) Debug.Log("Weird");
+        Select(brick);
+        selectedBrick = brick;
     }
     private void OnVoidClick()
     {
-        SelectedTower = null;
-        SelectedBrick = null;
-        UIScript.gameObject.SetActive(false);
+        System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+        Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
+        if(selectedTower)
+        {
+            selectedTower = null;
+            Deselect(SelectedTower);
+        }
+        if(selectedBrick)
+        {
+            selectedBrick = null;
+            Deselect(SelectedBrick);
+        }
     }
 
     public void Update()
@@ -205,65 +241,51 @@ public class SelectionManager : MonoBehaviour
             Brick brick = hit.collider.GetComponent<Brick>();
             if (Input.GetMouseButtonDown(0))
             {
-                lastClickedDown = hit.collider.gameObject;
-            }
-            else if (Input.GetMouseButton(0))
-            {
+                clickedDown = hit.collider.gameObject;
             }
             else if (Input.GetMouseButtonUp(0))
             {
                 clickedUp = hit.collider.gameObject;
 
                 // If we click on something that is nothing, we basically want to deselect
-                if(!brick && !tower)
+                if (!(brick || tower))
                 {
                     OnVoidClick();
                     return;
                 }
-                switch (mode)
-                {
-                    case SelectionMode.Normal:
-                        if (brick)
-                        {
-                            if(GameManager.LevelManager.IsAvailable(brick.internalPos))
-                            {
-                                OnEmptyTileClick(brick);
-                            }
-                        }
 
-                        // If the user clicks on something different
-                        if (SelectedTower)
-                        {
-                            if (clickedUp != SelectedTower.gameObject)
-                            {
-                                OnVoidClick();
-                            }
-                        }
-                        if (SelectedBrick)
-                        {
-                            if(clickedUp != SelectedBrick.gameObject)
-                            {
-                                OnVoidClick();
-                            }
-                        }
-                        // If the user clicks on the selected tower
-                        if (tower && lastClickedDown == clickedUp)
-                        {
-                            SelectedTower = SelectedTower ? null : tower;
-                            if (SelectedTower)
-                            {
-                                OnTowerClick(SelectedTower);
-                            }
-                        }
-                        if (brick && lastClickedDown == clickedUp)
-                        {
-                            SelectedBrick = SelectedBrick ? null : brick;
-                            if (SelectedBrick)
-                            {
-                                OnBrickClick(SelectedBrick);
-                            }
-                        }
-                        break;
+                // If the user clicks on the selected tower
+                if (tower && clickedDown == clickedUp)
+                {
+                    if(SelectedTower)
+                    {
+                        OnVoidClick();
+                    }
+                    else
+                    {
+                        OnTowerClick(tower);
+                    }
+                }
+                // If the user clicks on the selected brick
+                else if (brick && clickedDown == clickedUp)
+                {
+                    if (SelectedBrick)
+                    {
+                        OnVoidClick();
+                    }
+                    else
+                    {
+                        OnBrickClick(brick);
+                    }
+                }
+                // If the user clicks on something different
+                else if (SelectedTower && clickedUp != SelectedTower.gameObject)
+                {
+                    OnVoidClick();
+                }
+                else if (SelectedBrick && clickedUp != SelectedBrick.gameObject)
+                {
+                    OnVoidClick();
                 }
             }
         }
