@@ -8,7 +8,7 @@ public class PlayState : MonoBehaviour
 
     public void Enter()
     {
-        GUIManager.TowerSelectionPanel.gameObject.SetActive(true);
+        //GUIManager.TowerSelectionPanel.gameObject.SetActive(true);
         GUIManager.PauseButton.gameObject.SetActive(true);
         GUIManager.HealthBar.gameObject.SetActive(true);
         GUIManager.Money.gameObject.SetActive(true);
@@ -27,7 +27,7 @@ public class PlayState : MonoBehaviour
     {
         GUIManager.PauseButton.onClick.RemoveListener(OnPauseClick);
 
-        GUIManager.TowerSelectionPanel.gameObject.SetActive(false);
+        //GUIManager.TowerSelectionPanel.gameObject.SetActive(false);
         GUIManager.HealthBar.gameObject.SetActive(false);
         GUIManager.Money.gameObject.SetActive(false);
         GUIManager.PauseButton.gameObject.SetActive(false);

@@ -21,6 +21,9 @@ public class Enemy : MonoBehaviour {
         waypointEpsilon *= waypointEpsilon;
         distanceWalked = 0f;
         waypoints = GameManager.LevelManager.GetUseableWaypoints();
+    }
+    public void Start()
+    {
         GameManager.Fsm.Changed += Fsm_Changed;
     }
     private void Fsm_Changed(GameManager.States state)
@@ -51,13 +54,12 @@ public class Enemy : MonoBehaviour {
     public void ReachedBase()
     {
         GameManager.LevelManager.waveSpawner.Health--;
+        gameObject.SetActive(false);
         Destroy(gameObject);
-        enabled = false;
     }
     /// <summary>
     ///     Hits the enemy with `damage` and returns remaining damage
     /// </summary>
-    /// <param name="damage">Damage hit points</param>
     /// <returns>Remaining damage</returns>
     public int TakeDamage(int damage)
     {
@@ -66,6 +68,7 @@ public class Enemy : MonoBehaviour {
         {
             GameManager.Player.Money += value;
             if(onKill != null) Instantiate(onKill.gameObject, transform.position, Quaternion.identity);
+            gameObject.SetActive(false);
             Destroy(gameObject);
             return -health;
         }

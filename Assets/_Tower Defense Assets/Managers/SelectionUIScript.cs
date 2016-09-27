@@ -69,8 +69,11 @@ public class SelectionUIScript : MonoBehaviour {
 
     public void SetTower(Tower tower)
     {
-        System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
-        Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
+        if (GameManager.ShowDebug)
+        {
+            System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+            Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
+        }
 
         currentObject = tower.gameObject;
         brickSelectionUIScript.Hide();
@@ -78,8 +81,11 @@ public class SelectionUIScript : MonoBehaviour {
     }
     public void SetBrick(Brick brick)
     {
-        System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
-        Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
+        if (GameManager.ShowDebug)
+        {
+            System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+            Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
+        }
 
         if (GameManager.LevelManager.IsAvailable(brick.internalPos))
         {
@@ -90,6 +96,12 @@ public class SelectionUIScript : MonoBehaviour {
     }
     public void Deselect()
     {
+        if (GameManager.ShowDebug)
+        {
+            System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+            Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
+        }
+
         currentObject = null;
         towerSelectionUIScript.Hide();
         brickSelectionUIScript.Hide();

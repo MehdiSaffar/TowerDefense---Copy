@@ -21,10 +21,22 @@ public class BrickSelectionUIScript : MonoBehaviour
 
     public void Show()
     {
+        if(GameManager.ShowDebug)
+        {
+            System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+            Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
+        }
+
         gameObject.SetActive(true);
     }
     public void Hide()
     {
+        if (GameManager.ShowDebug)
+        {
+            System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+            Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
+        }
+
         gameObject.SetActive(false);
     }
 }

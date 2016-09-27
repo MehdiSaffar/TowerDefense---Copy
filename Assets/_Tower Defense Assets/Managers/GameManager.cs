@@ -83,6 +83,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool showDebug;
+    public static bool ShowDebug
+    {
+        get
+        {
+            return instance.showDebug;
+        }
+    }
+
     [HideInInspector]
     public StateMachine<States> fsm;
 

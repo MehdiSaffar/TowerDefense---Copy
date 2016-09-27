@@ -6,7 +6,7 @@ public class GUIManager : MonoBehaviour {
 
     [Header("UI Elements")]
     public MainMenuUIScript _MainMenu;
-    public TowerSelectionPanelUIScript _TowerSelectionPanel;
+    //public TowerSelectionPanelUIScript _TowerSelectionPanel;
     public Button _PlayButton;
     public Button _PauseButton;
     public HealthBarUIScript _HealthBar;
@@ -41,13 +41,13 @@ public class GUIManager : MonoBehaviour {
             return instance._MainMenu;
         }
     }
-    public static TowerSelectionPanelUIScript TowerSelectionPanel
+   /* public static TowerSelectionPanelUIScript TowerSelectionPanel
     {
         get
         {
             return instance._TowerSelectionPanel;
         }
-    }
+    }*/
     public static HealthBarUIScript HealthBar
     {
         get

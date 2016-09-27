@@ -150,23 +150,36 @@ public class Tower : MonoBehaviour {
     }
     public bool CanUpgrade()
     {
+        if(NextUpgradeExists())
+        {
+            if(GameManager.Player.CanBuy(GetNextUpgrade().cost))
+            {
+                return true;
+            }
+            else
+            {
+                Debug.Log("CanUpgrade: Insufficient funds.");
+                return false;
+            }
+        }
+        else
+        {
+            Debug.Log("CanUpgrade: No next upgrade");
+            return false;
+        }
+    }
+    public bool NextUpgradeExists()
+    {
         return GameManager.TowerManager.tower[data.type].Count > data.upgradeLevel + 1;
     }
     public Tower GetNextUpgrade()
     {
-        if (!CanUpgrade())
-        {
-            Debug.LogError("You can no longer upgrade the tower!");
-            return null;
-        }
-
-        Tower nextTower = GameManager.TowerManager.tower[data.type][data.upgradeLevel + 1].prefab.GetComponent<Tower>();
-        if (!GameManager.Player.CanBuy(nextTower.cost))
-        {
-            Debug.Log("You cannot buy the upgraded tower!");
-            return null;
-        }
-
+        return GameManager.TowerManager.tower[data.type][data.upgradeLevel + 1].prefab.GetComponent<Tower>();
+    }
+    public Tower Upgrade()
+    {
+        if (!CanUpgrade()) return null;
+        Tower nextTower = GetNextUpgrade();
         GameManager.Player.Buy(nextTower.cost);
 
         nextTower = Instantiate(nextTower.gameObject).GetComponent<Tower>();
@@ -180,7 +193,6 @@ public class Tower : MonoBehaviour {
         Debug.Log("Tower " + name + " has been upgraded!");
         return nextTower;
     }
-
     void OnDrawGizmos() {
         Gizmos.DrawWireSphere(transform.position, range);
         for (int i = 0; i < muzzleEnd.Length; i++)

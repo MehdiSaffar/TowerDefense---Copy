@@ -17,7 +17,7 @@ public class EditState : MonoBehaviour
         GameManager.SoundManager.SetMusic(editLoop);
         GameManager.SoundManager.PlayMusic();
 
-        GUIManager.TowerSelectionPanel.gameObject.SetActive(true);
+        //GUIManager.TowerSelectionPanel.gameObject.SetActive(true);
         GUIManager.Money.gameObject.SetActive(true);
         playButton.gameObject.SetActive(true);
 
@@ -61,7 +61,7 @@ public class EditState : MonoBehaviour
 
         GameManager.LevelManager.TowerPlaced -= OnTowerPlaced;
 
-        GUIManager.TowerSelectionPanel.gameObject.SetActive(false);
+        //GUIManager.TowerSelectionPanel.gameObject.SetActive(false);
         GUIManager.Money.gameObject.SetActive(false);
     }
 }

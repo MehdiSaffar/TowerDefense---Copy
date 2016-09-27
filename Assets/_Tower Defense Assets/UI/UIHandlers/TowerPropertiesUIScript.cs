@@ -39,7 +39,7 @@ public class TowerPropertiesUIScript : MonoBehaviour {
 
     public void ShowTowerProperties(Tower tower)
     {
-        upgradeButton.gameObject.SetActive(tower.CanUpgrade());
+        upgradeButton.gameObject.SetActive(tower.NextUpgradeExists());
         towerIconImage.sprite = GameManager.TowerManager.tower[tower.data.type][tower.data.upgradeLevel].icon;
         sellButtonText.text = "Sell for $" + tower.GetSellPrice(); 
         SetAimBehaviourButtons(tower.aimBehaviour);
