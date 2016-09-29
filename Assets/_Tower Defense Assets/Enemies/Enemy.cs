@@ -9,7 +9,10 @@ public class Enemy : MonoBehaviour {
     [SerializeField] protected float waypointEpsilon;
 
     [Header("FX")]
-    [HideInInspector] protected ParticleSystem onKill;
+    [SerializeField] protected ParticleSystem onKill;
+    [SerializeField]
+    protected WorldHealthBarUIScript healthBar;
+    [SerializeField] protected Vector3 healthBarWorldOffset;
 
     [HideInInspector] public float distanceWalked;
 
@@ -25,6 +28,12 @@ public class Enemy : MonoBehaviour {
     public void Start()
     {
         GameManager.Fsm.Changed += Fsm_Changed;
+        healthBar = Instantiate(GUIManager.WorldHealthBar.gameObject).GetComponent<WorldHealthBarUIScript>();
+        healthBar.transform.SetParent(GUIManager.instance.transform);
+        healthBar.gameObject.SetActive(true);
+        healthBar.worldOffset = healthBarWorldOffset;
+        healthBar.currentObject = gameObject;
+        healthBar.SetMaxHealth(health);
     }
     private void Fsm_Changed(GameManager.States state)
     {
@@ -33,6 +42,7 @@ public class Enemy : MonoBehaviour {
     void OnDestroy()
     {
         GameManager.Fsm.Changed -= Fsm_Changed;
+        Destroy(healthBar.gameObject);
     }
 
     public void Update()
@@ -64,6 +74,7 @@ public class Enemy : MonoBehaviour {
     public int TakeDamage(int damage)
     {
         health -= damage;
+        healthBar.OnHealthUpdate(health);
         if (health <= 0)
         {
             GameManager.Player.Money += value;

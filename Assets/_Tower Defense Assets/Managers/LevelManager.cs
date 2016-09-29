@@ -6,6 +6,7 @@ using UnityEngine;
 
 [Serializable]
 public enum Tile {
+    EMPTY,
     NORMAL,
     PATH,
     START,
@@ -193,57 +194,13 @@ public class LevelManager : MonoBehaviour {
         writer.Close();
     }
 
-    private Vector2 NextDirectionClockwise(Vector2 currentDirection) {
-        if (currentDirection == Vector2.right) return Vector2.up;
-        if (currentDirection == Vector2.up) return Vector2.left;
-        if (currentDirection == Vector2.left) return Vector2.down;
-        if (currentDirection == Vector2.down) return Vector2.right;
-        return Vector2.zero;
-    }
-    public void SetWaypoints() {
-        // TODO: Implement automatic waypoints algorithm
-        Vector2 currentPosition = currentLevelData.startPos;
-        Vector2 currentDirection = Vector2.right;
-        Vector2 nextPosition = currentPosition + currentDirection;
-
-        // find initial direction
-        int count = 0;
-        while (  currentLevelData.At(nextPosition) != Tile.PATH
-              && currentLevelData.At(nextPosition) != Tile.FINISH
-              && count < 3) {
-            currentDirection = NextDirectionClockwise(currentDirection);
-            nextPosition = currentPosition + currentDirection;
-            count++;
-        }
-
-        while (currentLevelData.At(currentPosition) != Tile.FINISH) {
-            // if the next tile is a normal tile, that means that we hit a corner
-            if (currentLevelData.At(nextPosition) == Tile.NORMAL) {
-                // therefore we should add a waypoint
-                currentLevelData.waypoints.Add(currentPosition);
-                // and find the direction
-                count = 0; // to prevent it from entering an infinite loop
-                do {
-                    currentDirection = NextDirectionClockwise(currentDirection);
-                    nextPosition = currentPosition + currentDirection;
-                    count++;
-                } while (currentLevelData.At(nextPosition) != Tile.PATH
-                      && currentLevelData.At(nextPosition) != Tile.FINISH
-                      && count < 3);
-            }
-            currentPosition = nextPosition;
-        }
-        // once we are here, we are on the finish tile
-        currentLevelData.waypoints.Add(currentPosition);
-    }
-
     //---------------- Level Build/Unbuild ----------------//
     public void BuildLevel() {
         if (currentLevelData == null) {
             Debug.LogError("Cannot build level, no level loaded");
             return;
         }
-        GameManager.Player.Money = currentLevelData.startingMoney;
+        if(Application.isPlaying) GameManager.Player.Money = currentLevelData.startingMoney;
         // Building tiles and setting center point
         centerPoint = Vector3.zero;
         for (int x = 0; x < currentLevelData.width; x++)
@@ -265,6 +222,12 @@ public class LevelManager : MonoBehaviour {
         Combine(placedPath, PlacedPaths);
 
         Camera.main.GetComponent<CameraController>().target = centerPoint;
+        Camera.main.GetComponent<CameraController>().limits = new Rect(
+            centerPoint.x - (currentLevelData.width / 2f + edgeThickness /2f) * brickSize.x,
+            centerPoint.z - (currentLevelData.length / 2f + edgeThickness /2f)* brickSize.z,
+            (currentLevelData.width + edgeThickness)* brickSize.x,
+            (currentLevelData.length + edgeThickness) * brickSize.z);
+
         // Placing waypoints
         if (waypointList == null) {
             waypointList = new GameObject("Waypoint List");
@@ -372,6 +335,7 @@ public class LevelManager : MonoBehaviour {
                     placedTiles.Add(block);
                 }
                 break;
+            default: break;
         }
         centerPoint += tilePos / (currentLevelData.width * currentLevelData.length);
     }
@@ -453,6 +417,7 @@ public class LevelManager : MonoBehaviour {
     public float smoothFadeSpeed;
     private bool isSmoothFading = false;
     private float targetHeight;
+    public float edgeThickness;
 
     public void SmoothFade() {
         targetHeight = transform.position.y;
@@ -505,5 +470,15 @@ public class LevelManager : MonoBehaviour {
                 isSmoothFading = false;
             }
         }
+    }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(centerPoint, 0.5f);
+        Gizmos.DrawRay(centerPoint, Vector3.right * currentLevelData.width /2f * brickSize.x);
+        Gizmos.DrawRay(centerPoint, Vector3.left * currentLevelData.width /2f * brickSize.x);
+        Gizmos.DrawRay(centerPoint, Vector3.forward * currentLevelData.length / 2f * brickSize.z);
+        Gizmos.DrawRay(centerPoint, Vector3.back * currentLevelData.length / 2f * brickSize.z);
+
     }
 }

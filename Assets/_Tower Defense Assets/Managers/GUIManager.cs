@@ -18,6 +18,7 @@ public class GUIManager : MonoBehaviour {
     public TowerPropertiesUIScript _TowerProperties;
     public SelectionUIScript _SelectionUI;
     public LevelSelectionUIScript _LevelSelectionUI;
+    public WorldHealthBarUIScript _WorldHealthBar;
 
     // Defining getters for quick access
     public static Button PlayButton
@@ -41,13 +42,7 @@ public class GUIManager : MonoBehaviour {
             return instance._MainMenu;
         }
     }
-   /* public static TowerSelectionPanelUIScript TowerSelectionPanel
-    {
-        get
-        {
-            return instance._TowerSelectionPanel;
-        }
-    }*/
+
     public static HealthBarUIScript HealthBar
     {
         get
@@ -104,6 +99,13 @@ public class GUIManager : MonoBehaviour {
         get
         {
             return instance._SelectionUI;
+        }
+    }
+    public static WorldHealthBarUIScript WorldHealthBar
+    {
+        get
+        {
+            return instance._WorldHealthBar;
         }
     }
 

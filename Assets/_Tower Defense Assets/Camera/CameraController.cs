@@ -16,6 +16,7 @@ public class CameraController : MonoBehaviour
     public float maxArmLength = 50f;
     public float minArmLength = 10f;
     [HideInInspector] public float armLength;
+    public Rect limits;
 
     public float maxVerticalOrbitAngle = 70f;
     public float minVerticalOrbitAngle = 15f;
@@ -137,14 +138,43 @@ public class CameraController : MonoBehaviour
 
         //------------------- Update -------------------//
         // PAN
-        target += panForwardVector * panVelocity.y  * Time.deltaTime;
+        target             += panRightVector   * panVelocity.x * Time.deltaTime;
+        transform.position += panRightVector   * panVelocity.x * Time.deltaTime;
+        target             += panForwardVector * panVelocity.y * Time.deltaTime;
         transform.position += panForwardVector * panVelocity.y * Time.deltaTime;
-        target += panRightVector * panVelocity.x * Time.deltaTime;
-        transform.position += panRightVector * panVelocity.x * Time.deltaTime;
+
         armLength = Mathf.Clamp(armLength + armLengthVelocity * Time.deltaTime, minArmLength, maxArmLength);
+
+
+        target.x = Mathf.Clamp(target.x, limits.x + arm.x, limits.xMax);
+        target.z = Mathf.Clamp(target.z, limits.y + arm.z, limits.yMax);
 
         // WHOLE THING
         transform.position = target + arm * armLength;
         transform.rotation = Quaternion.LookRotation(-arm);
+
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, limits.x, limits.xMax);
+        pos.z = Mathf.Clamp(pos.z, limits.y, limits.yMax);
+        transform.position = pos;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(new Vector3(limits.xMin, 0, limits.yMin), Vector3.up * 100);
+        Gizmos.DrawRay(new Vector3(limits.xMin, 0, limits.yMax), Vector3.up * 100);
+        Gizmos.DrawRay(new Vector3(limits.xMax, 0, limits.yMin), Vector3.up * 100);
+        Gizmos.DrawRay(new Vector3(limits.xMax, 0, limits.yMax), Vector3.up * 100);
+        Gizmos.DrawLine(new Vector3(limits.xMin, 0, limits.yMin), new Vector3(limits.xMin, 0, limits.yMax));
+        Gizmos.DrawLine(new Vector3(limits.xMin, 0, limits.yMin), new Vector3(limits.xMax, 0, limits.yMin));
+        Gizmos.DrawLine(new Vector3(limits.xMax, 0, limits.yMax), new Vector3(limits.xMax, 0, limits.yMin));
+        Gizmos.DrawLine(new Vector3(limits.xMax, 0, limits.yMax), new Vector3(limits.xMin, 0, limits.yMax));
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, target);
+        Gizmos.DrawSphere(target, 1);
+        Gizmos.color = Color.black;
+        Gizmos.DrawRay(transform.position, panForwardVector);
+
     }
 }

@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
         // Creating finite state machine
         fsm = StateMachine<States>.Initialize(instance);
 #if (UNITY_ANDROID || UNITY_IOS)
-        LevelManager.CopyLevelsToDisk(1, 1);
+        LevelManager.CopyLevelsToDisk(1, 2);
 #endif
     }
 
@@ -170,11 +170,6 @@ public class GameManager : MonoBehaviour
     public void MainEntry_Enter()
     {
         Player.Load("Player.dat");
-        /*for (int i = 0; i < GUIManager.instance.transform.childCount; i++)
-        {
-            GUIManager.instance.transform.GetChild(i).gameObject.SetActive(true);
-            GUIManager.instance.transform.GetChild(i).gameObject.SetActive(false);
-        }*/
         Fsm.ChangeState(States.MainMenu);
     }
     //********** MAINMENU GAME STATE **********//

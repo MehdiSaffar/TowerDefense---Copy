@@ -53,7 +53,6 @@ public class LevelSelectState : MonoBehaviour
 
     public void Enter()
     {
-        Debug.Log("Enter");
         if (data == null)
         {
             if (!LoadData())

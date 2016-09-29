@@ -1,21 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-/*public interface ITower
-{
-    TowerData Data { get; set; }
-    int Cost { get; set; }
-    float Range { get; set; }
-    GameObject RangeGizmo { get; set; }
-    float TurnSpeed { get; set; }
-    float HitRate { get; set; }
-    float HitDamage { get; set; }
-    float AngleEpsilon { get; set; }
-    float SellPrice { get; }
-
-    bool CanUpgrade();
-}*/
-
 public class Tower : MonoBehaviour {
     public enum AimBehaviour
     {
@@ -23,6 +8,7 @@ public class Tower : MonoBehaviour {
         Farthest,
         Healthiest,
     };
+
     public TowerData data;
     public int cost;
 
@@ -71,6 +57,18 @@ public class Tower : MonoBehaviour {
             newScale.y = 3;
             rangeGizmo.transform.localScale = newScale;
             rangeGizmo.SetActive(false);
+            for (int i = 0; i < rangeGizmo.transform.childCount; i++)
+            {
+                Material mat = rangeGizmo.transform.GetChild(i).GetComponent<Renderer>().material;
+                if(mat.HasProperty("_TintColor"))
+                {
+                    mat.SetColor("_TintColor", selectionHighlightColor);
+                }
+                else if (mat.HasProperty("_Diffusecolor"))
+                {
+                    mat.SetColor("_Diffusecolor", selectionHighlightColor);
+                }
+            }
         }
         foreach (Highlightable highlightable in GetComponentsInChildren<Highlightable>(true))
             highlightable.highlightColor = selectionHighlightColor;
@@ -193,7 +191,7 @@ public class Tower : MonoBehaviour {
         Debug.Log("Tower " + name + " has been upgraded!");
         return nextTower;
     }
-    void OnDrawGizmos() {
+    void OnDrawGizmosSelected() {
         Gizmos.DrawWireSphere(transform.position, range);
         for (int i = 0; i < muzzleEnd.Length; i++)
             Gizmos.DrawRay(muzzleEnd[i].transform.position, muzzleEnd[i].transform.forward * 3);

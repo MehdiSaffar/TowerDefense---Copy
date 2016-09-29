@@ -45,6 +45,10 @@ public class SelectionUIScript : MonoBehaviour {
     [SerializeField] private GameObject currentObject;
     [SerializeField] private float objectScale = 1.0f;
     [SerializeField] private Vector3 initialScale;
+    [SerializeField]
+    private float lowestScale;
+    [SerializeField]
+    private float highestScale;
 
     void Awake()
     {
@@ -115,7 +119,7 @@ public class SelectionUIScript : MonoBehaviour {
     private void CenterUIOnObject()
     {
         float dist = (Camera.main.transform.position - currentObject.transform.position).magnitude;
-        transform.localScale = initialScale * 1f/dist * objectScale;
+        transform.localScale = initialScale * Mathf.Clamp(1f/dist * objectScale, lowestScale, highestScale);
         foreach (var render in GetComponentsInChildren<Renderer>())
             render.enabled = currentObject.GetComponentInChildren<Renderer>().isVisible;
         transform.position = Camera.main.WorldToScreenPoint(currentObject.transform.position);

@@ -23,6 +23,7 @@ public class TowerSelectionUIScript : MonoBehaviour {
     public void TriggerAimBehaviourChange(int aimBehaviour)
     {
         if (AimBehaviourClick != null) AimBehaviourClick((Tower.AimBehaviour)aimBehaviour);
+        SetAimBehaviour((Tower.AimBehaviour) aimBehaviour);
     }
 
     [SerializeField]
@@ -32,8 +33,33 @@ public class TowerSelectionUIScript : MonoBehaviour {
     [SerializeField]
     private ItemCostUIScript sellCost;
 
-    private Tower currentTower;
+    public Image closest;
+    public Image farthest;
+    public Image healthiest;
 
+    private Tower currentTower;
+    public Color unselectedColor;
+    public Color selectedColor;
+
+    private void SetAimBehaviour(Tower.AimBehaviour behaviour)
+    {
+        closest.color = unselectedColor;
+        farthest.color = unselectedColor;
+        healthiest.color = unselectedColor;
+
+        switch (behaviour)
+        {
+            case Tower.AimBehaviour.Closest:
+                closest.color = selectedColor;
+                break;
+            case Tower.AimBehaviour.Farthest:
+                farthest.color = selectedColor;
+                break;
+            case Tower.AimBehaviour.Healthiest:
+                healthiest.color = selectedColor;
+                break;
+        }
+    }
 	public void Show(Tower tower)
     {
         if(GameManager.ShowDebug)
@@ -47,6 +73,7 @@ public class TowerSelectionUIScript : MonoBehaviour {
         gameObject.SetActive(true);
         OnMoneyUpdate(GameManager.Player.Money); // Check Update stuff
         sellCost.Cost = tower.GetSellPrice();
+        SetAimBehaviour(tower.aimBehaviour);
     }
     public void Hide()
     {

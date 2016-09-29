@@ -121,6 +121,7 @@ public class SelectionManager : MonoBehaviour
         UIScript.TowerBuyClick += OnTowerBuyClick;
         UIScript.SellClick += OnTowerSellClick;
         UIScript.UpgradeClick += OnTowerUpgradeClick;
+        UIScript.AimBehaviourClick += OnAimBehaviourClick;
     }
     private void Reset()
     {
@@ -140,7 +141,6 @@ public class SelectionManager : MonoBehaviour
     //--------- Events ----------//
     public void OnAimBehaviourClick(Tower.AimBehaviour aimBehaviour)
     {
-        // TODO: Implement changing aim behaviour
         if (GameManager.ShowDebug)
         {
             System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
@@ -233,9 +233,7 @@ public class SelectionManager : MonoBehaviour
         }
         else
         {
-            DeselectAll();
-            selectedBrick = null;
-            selectedTower = null;
+            OnVoidClick();
         }
     }
     private void OnVoidClick()
@@ -269,39 +267,57 @@ public class SelectionManager : MonoBehaviour
             {
                 clickedUp = hit.collider.gameObject;
 
-                // If we click on something that is nothing, we basically want to deselect
-                if (!(brick || tower))
-                {
-                    OnVoidClick();
-                    return;
-                }
-
-                // If the user clicks on
+                // If the user clicks on something
                 if (clickedDown == clickedUp)
                 {
-                    if(selectedTower && tower == selectedTower)
+                    if (selectedTower)
                     {
-                        OnVoidClick();
-                        return;
+                        if (tower && selectedTower == tower)
+                        {
+                            OnVoidClick();
+                            return;
+                        }
+                        else if (tower)
+                        {
+                            OnObjectClick(tower);
+                        }
+                        else
+                        {
+                            OnVoidClick();
+                        }
                     }
-                    else if(selectedBrick && brick == selectedBrick)
+                    else if (selectedBrick)
                     {
-                        OnVoidClick();
-                        return;
+                        if (brick && brick == selectedBrick)
+                        {
+                            OnVoidClick();
+                            return;
+                        }
+                        else if (tower)
+                        {
+                            OnObjectClick(tower);
+                        }
+                        else if (brick)
+                        {
+                            OnVoidClick();
+                        }
                     }
-                    if (tower) OnObjectClick(tower);
-                    else if (brick) OnObjectClick(brick);
+                    else
+                    {
+                        if(brick)
+                        {
+                            OnObjectClick(brick);
+                        }
+                        else if(tower)
+                        {
+                            OnObjectClick(tower);
+                        }
+                        else
+                        {
+                            OnVoidClick();
+                        }
+                    }
                 }
-
-                /*// If the user clicks on something different
-                else if (SelectedTower && clickedUp != SelectedTower.gameObject)
-                {
-                    OnVoidClick();
-                }
-                else if (SelectedBrick && clickedUp != SelectedBrick.gameObject)
-                {
-                    OnVoidClick();
-                }*/
             }
         }
     }

@@ -1,8 +1,13 @@
 {
-	"id": 1,
-    "filename": "Level1",
+    "id": 2,
+    "filename": "Level2",
     "grid": [
         [
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
             "NORMAL",
             "NORMAL",
             "NORMAL",
@@ -28,84 +33,58 @@
             "PATH",
             "PATH",
             "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "NORMAL"
-        ],
-        [
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "PATH",
-            "NORMAL"
-        ],
-        [
-            "NORMAL",
-            "NORMAL",
             "NORMAL",
             "NORMAL",
             "PATH",
             "PATH",
             "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "PATH",
-            "NORMAL"
-        ],
-        [
             "NORMAL",
             "PATH",
             "PATH",
             "PATH",
-            "PATH",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
             "NORMAL",
             "PATH",
             "PATH",
+            "PATH",
+            "NORMAL",
             "PATH",
             "PATH",
             "PATH",
             "NORMAL"
         ],
         [
-            "NORMAL",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "PATH",
+            "PATH",
+            "PATH",
             "PATH",
             "NORMAL",
+            "PATH",
+            "PATH",
+            "PATH",
+            "NORMAL",
+            "PATH",
+            "PATH",
+            "PATH",
+            "NORMAL",
+            "PATH",
+            "PATH",
+            "PATH",
+            "NORMAL",
+            "PATH",
+            "NORMAL"
+        ],
+        [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
             "NORMAL",
             "NORMAL",
             "NORMAL",
@@ -120,13 +99,19 @@
             "NORMAL",
             "NORMAL",
             "NORMAL",
+            "PATH",
             "NORMAL"
         ],
         [
             "NORMAL",
             "PATH",
-            "NORMAL",
-            "NORMAL",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
             "PATH",
             "PATH",
             "PATH",
@@ -147,102 +132,230 @@
             "PATH",
             "NORMAL",
             "NORMAL",
-            "PATH",
             "NORMAL",
             "NORMAL",
             "NORMAL",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
             "NORMAL",
             "NORMAL",
             "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "PATH",
-            "NORMAL"
+            "EMPTY",
+            "EMPTY"
         ],
         [
             "NORMAL",
             "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
             "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "EMPTY",
+            "EMPTY"
+        ],
+        [
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "NORMAL",
+            "EMPTY",
+            "EMPTY"
+        ],
+        [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "PATH",
+            "NORMAL",
+            "EMPTY",
+            "EMPTY"
+        ],
+        [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "NORMAL",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "NORMAL",
+            "EMPTY",
+            "EMPTY"
+        ],
+        [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
             "NORMAL",
             "PATH",
             "NORMAL",
             "NORMAL",
             "NORMAL",
             "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "EMPTY",
+            "EMPTY"
+        ],
+        [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "NORMAL",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+        ],
+        [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "NORMAL",
+            "PATH",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "NORMAL",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+        ],
+        [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "NORMAL",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
+            "PATH",
             "PATH",
             "PATH",
             "PATH",
             "FINISH",
             "NORMAL",
             "NORMAL",
-            "NORMAL",
-            "PATH",
-            "NORMAL"
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
         ],
         [
-            "NORMAL",
-            "PATH",
-            "NORMAL",
-            "NORMAL",
-            "PATH",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "PATH",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "PATH",
-            "NORMAL"
-        ],
-        [
-            "NORMAL",
-            "PATH",
-            "NORMAL",
-            "NORMAL",
-            "PATH",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "PATH",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "PATH",
-            "NORMAL"
-        ],
-        [
-            "NORMAL",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "NORMAL",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "PATH",
-            "NORMAL"
-        ],
-        [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
             "NORMAL",
             "NORMAL",
             "NORMAL",
@@ -259,33 +372,83 @@
             "NORMAL",
             "NORMAL",
             "NORMAL",
-            "NORMAL",
-            "NORMAL"
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
         ]
     ],
     "waypoints": [
         {
-            "x": 16.0,
+            "x": 4.0,
             "y": 1.0
         },
         {
-            "x": 16.0,
-            "y": 4.0
-        },
-        {
-            "x": 12.0,
-            "y": 4.0
-        },
-        {
-            "x": 12.0,
-            "y": 3.0
-        },
-        {
             "x": 4.0,
-            "y": 3.0
+            "y": 2.0
         },
         {
-            "x": 4.0,
+            "x": 7.0,
+            "y": 2.0
+        },
+        {
+            "x": 7.0,
+            "y": 1.0
+        },
+        {
+            "x": 9.0,
+            "y": 1.0
+        },
+        {
+            "x": 9.0,
+            "y": 2.0
+        },
+        {
+            "x": 11.0,
+            "y": 2.0
+        },
+        {
+            "x": 11.0,
+            "y": 1.0
+        },
+        {
+            "x": 13.0,
+            "y": 1.0
+        },
+        {
+            "x": 13.0,
+            "y": 2.0
+        },
+        {
+            "x": 15.0,
+            "y": 2.0
+        },
+        {
+            "x": 15.0,
+            "y": 1.0
+        },
+        {
+            "x": 17.0,
+            "y": 1.0
+        },
+        {
+            "x": 17.0,
+            "y": 2.0
+        },
+        {
+            "x": 19.0,
+            "y": 2.0
+        },
+        {
+            "x": 19.0,
+            "y": 1.0
+        },
+        {
+            "x": 21.0,
+            "y": 1.0
+        },
+        {
+            "x": 21.0,
             "y": 4.0
         },
         {
@@ -294,57 +457,48 @@
         },
         {
             "x": 1.0,
-            "y": 11.0
-        },
-        {
-            "x": 4.0,
-            "y": 11.0
+            "y": 6.0
         },
         {
             "x": 4.0,
             "y": 6.0
         },
         {
-            "x": 16.0,
-            "y": 6.0
+            "x": 4.0,
+            "y": 7.0
         },
         {
-            "x": 16.0,
-            "y": 11.0
+            "x": 19.0,
+            "y": 7.0
         },
         {
-            "x": 9.0,
-            "y": 11.0
+            "x": 19.0,
+            "y": 9.0
         },
         {
-            "x": 9.0,
-            "y": 8.0,
+            "x": 4.0,
+            "y": 9.0
         },
         {
-            "x": 12.0,
-            "y": 8.0
+            "x": 4.0,
+            "y": 13.0
+        },
+        {
+            "x": 15.0,
+            "y": 13.0
         }
     ],
-    "width": 18,
-    "length": 13,
+    "width": 23,
+    "length": 15,
     "startPos": {
         "x": 1.0,
         "y": 1.0
     },
     "finishPos": {
-        "x": 12.0,
-        "y": 8.0
+        "x": 16.0,
+        "y": 13.0
     },
-    "towers": [
-		{
-			"position": {
-				"x": 2,
-				"y": 2
-			},
-			"type": "TURRET_2",
-			"upgradeLevel": 0,
-		}
-	],
+    "towers": [],
     "waves": {
         "waves": [
       {
