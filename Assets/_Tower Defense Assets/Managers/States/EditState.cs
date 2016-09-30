@@ -54,8 +54,6 @@ public class EditState : MonoBehaviour
     {
         GameManager.SoundManager.StopMusic();
 
-        // FIXME: Find solution to changing state while placing tower
-
         playButton.gameObject.SetActive(false);
         playButton.onClick.RemoveListener(OnPlayClick);
 

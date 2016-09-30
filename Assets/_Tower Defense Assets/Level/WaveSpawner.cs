@@ -9,13 +9,14 @@ public class WaveSpawner : MonoBehaviour
     public WavechainData waveData;
 
     private float elapsedSinceWaveStart;
-    public bool isSpawningWaves;
-    private int waveIndex;
-    private int waveletIndex;
-    private int waveletRunningCount;
     private int health;
 
-    // Setters for notifications
+    // State booleans
+    public bool askedToSpawn;
+    public bool isPaused;
+
+    // Health of base
+    // TODO: Move health out of wave spawner ?
     public int Health
     {
         get
@@ -28,6 +29,8 @@ public class WaveSpawner : MonoBehaviour
             EventManager.TriggerHealthUpdate(health);
         }
     }
+
+    // Wave related
     public int WaveIndex
     {
         get
@@ -40,36 +43,50 @@ public class WaveSpawner : MonoBehaviour
             EventManager.TriggerWaveIndexUpdate(waveIndex);
         }
     }
+    private int waveIndex;
+    private int waveletIndex;
+    private int waveletRunningCount;
 
-    public void Awake()
-    {
-        enemiesList = new GameObject("Enemies List");
-        enemiesList.transform.parent = GameManager.EntitiesList.transform;
-    }
     public void Start()
     {
+        GameManager.Fsm.Changed += Fsm_Changed;
+
+        enemiesList = new GameObject("Enemies List");
+        enemiesList.transform.parent = GameManager.EntitiesList.transform;
+
         WaveIndex = 0;
-        Health = 7;
         waveletIndex = 0;
         waveletRunningCount = 0;
-        isSpawningWaves = false;
-        elapsedSinceWaveStart = 0f;
-        GameManager.Fsm.Changed += Fsm_Changed;
-    }
 
+        Health = 7;
+        askedToSpawn = false;
+        isPaused = false;
+        elapsedSinceWaveStart = 0f;
+    }
     private void Fsm_Changed(GameManager.States state)
     {
-        isSpawningWaves = state == GameManager.States.Play;
+        isPaused = state != GameManager.States.Play;
+    }
+    void OnDestroy()
+    {
+        GameManager.Fsm.Changed -= Fsm_Changed;
+        if (enemiesList != null)
+        {
+            Transform[] childrenObjects = enemiesList.GetComponentsInChildren<Transform>(true);
+            foreach (Transform child in childrenObjects) Destroy(child.gameObject);
+        }
     }
 
     public void Update()
     {
-        if (isSpawningWaves)
+        if (askedToSpawn && !isPaused)
         {
             elapsedSinceWaveStart += Time.deltaTime;
+
             if (waveletIndex < waveData.waves[WaveIndex].wavelets.Count)
             {
-                if (elapsedSinceWaveStart >= waveData.waves[WaveIndex].wavelets[waveletIndex].timeOffset)
+                WaveletData currentWavelet = waveData.waves[WaveIndex].wavelets[waveletIndex];
+                if (elapsedSinceWaveStart >= currentWavelet.timeOffset)
                 {
                     StartCoroutine(SpawnWavelet());
                     waveletIndex++;
@@ -77,44 +94,51 @@ public class WaveSpawner : MonoBehaviour
             }
             else
             {
-                if (waveletRunningCount == 0 && enemiesList.transform.childCount == 0)
+                if (enemiesList.transform.childCount == 0)
                 {
-                    isSpawningWaves = false;
-                    WaveIndex++;
-                    waveletIndex = 0;
-                    elapsedSinceWaveStart = 0f;
-                    if (WaveIndex == waveData.waves.Count)
-                    {
-                        GameManager.Fsm.ChangeState(GameManager.States.LevelWin);
-                    }
-                    else
-                    {
-                        GameManager.Fsm.ChangeState(GameManager.States.Edit);
-                    }
+                    OnWaveFinished();
                 }
             }
+
         }
     }
-    public void OnDestroy()
+
+    private void OnWaveFinished()
     {
-        if (enemiesList != null)
+        WaveIndex++;
+        waveletIndex = 0;
+        elapsedSinceWaveStart = 0f;
+
+        if (WaveIndex < waveData.waves.Count)
         {
-            Transform[] childrenObjects = enemiesList.GetComponentsInChildren<Transform>(true);
-            foreach (Transform child in childrenObjects) Destroy(child.gameObject);
+            GameManager.Fsm.ChangeState(GameManager.States.Edit);
         }
+        else
+        {
+            GameManager.Fsm.ChangeState(GameManager.States.LevelWin);
+        }
+        StopSpawning();
     }
-    public void SpawnWave()
+    private void OnAllWavesFinished()
     {
-        isSpawningWaves = waveData != null && WaveIndex < waveData.waves.Count;
+        GameManager.Fsm.ChangeState(GameManager.States.LevelWin);
+        StopSpawning();
+    }
+    public void StartSpawning()
+    {
+        askedToSpawn = true;
+    }
+    public void StopSpawning()
+    {
+        askedToSpawn = false;
     }
     public IEnumerator SpawnWavelet()
     {
         int thisWaveletIndex = waveletIndex;
-        waveletRunningCount++;
         for (int i = 0; i < waveData.waves[WaveIndex].wavelets[thisWaveletIndex].enemiesCount; i++)
         {
-            if (!isSpawningWaves)
-                yield return new WaitUntil(IsSpawning);
+            if (!askedToSpawn || isPaused)
+                yield return new WaitWhile(IsPaused);
             GameObject enemy = Instantiate(
                 EnemyManager.EnemyGO[waveData.waves[WaveIndex].wavelets[thisWaveletIndex].enemyType],
                 transform.position,
@@ -122,14 +146,15 @@ public class WaveSpawner : MonoBehaviour
                 ) as GameObject;
             enemy.transform.position += Vector3.up * enemy.GetComponent<Renderer>().bounds.extents.y;
             enemy.transform.parent = enemiesList.transform;
-            if (isSpawningWaves)
+
+            if (askedToSpawn)
                 yield return new WaitForSeconds(1 / waveData.waves[WaveIndex].wavelets[thisWaveletIndex].spawnRate);
-            else yield return new WaitUntil(IsSpawning);
+            else
+                yield return new WaitWhile(IsPaused);
         }
-        waveletRunningCount--;
     }
-    private bool IsSpawning()
+    private bool IsPaused()
     {
-        return isSpawningWaves;
+        return isPaused;
     }
 }

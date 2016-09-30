@@ -27,6 +27,7 @@ public class ItemCostUIScript : MonoBehaviour {
         {
             cost = value;
             costText.text = "$" + cost.ToString();
+            OnMoneyUpdate(GameManager.Player.Money);
         }
     }
 
@@ -53,10 +54,26 @@ public class ItemCostUIScript : MonoBehaviour {
     }
 	public void Show()
     {
+        EventManager.MoneyUpdate += OnMoneyUpdate;
         gameObject.SetActive(true);
     }
+
+    private void OnMoneyUpdate(int newMoney)
+    {
+        if (newMoney < cost)
+        {
+            ItemState = State.InsufficientFunds;
+        }
+        else
+        {
+            ItemState = State.Available;
+        }
+    }
+
     public void Hide()
     {
+        EventManager.MoneyUpdate -= OnMoneyUpdate;
+
         gameObject.SetActive(false);
     }
 }

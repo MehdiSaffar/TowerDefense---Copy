@@ -19,6 +19,7 @@ public class GUIManager : MonoBehaviour {
     public SelectionUIScript _SelectionUI;
     public LevelSelectionUIScript _LevelSelectionUI;
     public WorldHealthBarUIScript _WorldHealthBar;
+    public ItemCostUIScript _ItemCost;
 
     // Defining getters for quick access
     public static Button PlayButton
@@ -26,6 +27,13 @@ public class GUIManager : MonoBehaviour {
         get
         {
             return instance._PlayButton;
+        }
+    }
+    public static ItemCostUIScript ItemCost
+    {
+        get
+        {
+            return instance._ItemCost;
         }
     }
     public static Button PauseButton

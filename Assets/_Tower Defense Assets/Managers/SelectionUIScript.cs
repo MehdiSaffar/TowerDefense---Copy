@@ -111,7 +111,7 @@ public class SelectionUIScript : MonoBehaviour {
         brickSelectionUIScript.Hide();
     }
 
-    void LateUpdate()
+    void Update()
     {
         if (!currentObject) return;
         CenterUIOnObject();

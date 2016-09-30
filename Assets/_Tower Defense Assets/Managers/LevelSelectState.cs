@@ -101,6 +101,7 @@ public class LevelSelectState : MonoBehaviour
             Debug.LogError(result.RawMessages);
             return false;
         }
+        Debug.Log("Successfully loaded level selection data!");
         reader.Close();
 
         foreach (var level in data.levels)

@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour
     public float panSpeedCoefficient = 2f;
     public float zoomSpeed = 2f;
     public float panAcceleration;
+    public float maxVelocity;
 
     [Header("Constraints")]
     public float maxArmLength = 50f;
@@ -90,6 +91,7 @@ public class CameraController : MonoBehaviour
             }
             panAccel = panAccel.normalized * panAcceleration * Time.deltaTime;
             panVelocity += panAccel * Time.deltaTime;
+            panVelocity = panVelocity.normalized * Mathf.Min(panVelocity.magnitude, maxVelocity);
 
             if(Input.GetKey(KeyCode.Q))
             {

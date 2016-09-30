@@ -6,6 +6,8 @@ public class PlayState : MonoBehaviour
     public AudioClip onWaveBegin;
     public AudioClip onSpawn;
 
+    private float elapsedTime = 0f;
+    public float waveIndicatorAnimationDuration = 1f;
     public void Enter()
     {
         //GUIManager.TowerSelectionPanel.gameObject.SetActive(true);
@@ -19,8 +21,20 @@ public class PlayState : MonoBehaviour
         EventManager.BaseDie += OnBaseDie;
 
         if (GameManager.Fsm.LastState == GameManager.States.Edit) {
-            GameManager.LevelManager.waveSpawner.SpawnWave();
-            GameManager.SoundManager.RandomizeFx(onWaveBegin);
+            GUIManager.WaveIndicator.GetComponent<Animator>().SetTrigger("Play");
+            elapsedTime = 0f;
+        }
+    }
+    public void Update()
+    {
+        if (GameManager.Fsm.LastState == GameManager.States.Edit)
+        {
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime >= waveIndicatorAnimationDuration)
+            {
+                GameManager.LevelManager.waveSpawner.StartSpawning();
+                GameManager.SoundManager.RandomizeFx(onWaveBegin);
+            }
         }
     }
     public void Exit()
