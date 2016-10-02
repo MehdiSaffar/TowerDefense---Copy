@@ -119,7 +119,7 @@ public class SelectionUIScript : MonoBehaviour {
     private void CenterUIOnObject()
     {
         float dist = (Camera.main.transform.position - currentObject.transform.position).magnitude;
-        transform.localScale = initialScale * Mathf.Clamp(1f/dist * objectScale, lowestScale, highestScale);
+        transform.localScale = initialScale * Mathf.Max(1f/dist * objectScale, lowestScale);
         foreach (var render in GetComponentsInChildren<Renderer>())
             render.enabled = currentObject.GetComponentInChildren<Renderer>().isVisible;
         transform.position = Camera.main.WorldToScreenPoint(currentObject.transform.position);

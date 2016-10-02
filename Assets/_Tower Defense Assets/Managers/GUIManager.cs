@@ -50,7 +50,6 @@ public class GUIManager : MonoBehaviour {
             return instance._MainMenu;
         }
     }
-
     public static HealthBarUIScript HealthBar
     {
         get

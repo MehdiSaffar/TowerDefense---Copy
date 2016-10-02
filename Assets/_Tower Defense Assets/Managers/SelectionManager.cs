@@ -20,6 +20,7 @@ public class SelectionManager : MonoBehaviour
     [Header("For Debug ONLY")]
     [SerializeField] private Tower selectedTower;
     [SerializeField] private Brick selectedBrick;
+
     private void SetHighlightRecursively(GameObject obj, bool highlight)
     {
         Highlightable highlightable = obj.GetComponent<Highlightable>();
@@ -72,6 +73,22 @@ public class SelectionManager : MonoBehaviour
         tower.rangeGizmo.SetActive(false);
         UIScript.Deselect();
     }
+    /// <summary>
+    /// Sets the brick as selected in the UIScript
+    /// </summary>
+    private void Select(Brick brick)
+    {
+        DeselectAll();
+        UIScript.SetBrick(brick);
+        selectedBrick = brick;
+    }
+    private void Deselect(Brick brick)
+    {
+        UIScript.Deselect();
+    }
+    /// <summary>
+    /// Deselects all objects
+    /// </summary>
     private void DeselectAll()
     {
         if (selectedTower)
@@ -85,19 +102,6 @@ public class SelectionManager : MonoBehaviour
         selectedBrick = null;
         selectedTower = null;
 
-    }
-    /// <summary>
-    /// Sets the brick as selected in the UIScript
-    /// </summary>
-    private void Select(Brick brick)
-    {
-        DeselectAll();
-        UIScript.SetBrick(brick);
-        selectedBrick = brick;
-    }
-    private void Deselect(Brick brick)
-    {
-        UIScript.Deselect();
     }
 
     void Awake()
@@ -139,7 +143,7 @@ public class SelectionManager : MonoBehaviour
     }
 
     //--------- Events ----------//
-    public void OnAimBehaviourClick(Tower.AimBehaviour aimBehaviour)
+    private void OnAimBehaviourClick(Tower.AimBehaviour aimBehaviour)
     {
         if (GameManager.ShowDebug)
         {
@@ -149,7 +153,7 @@ public class SelectionManager : MonoBehaviour
 
         selectedTower.aimBehaviour = aimBehaviour;
     }
-    public void OnTowerBuyClick(Vector2 pos, TowerType towerType)
+    private void OnTowerBuyClick(Vector2 pos, TowerType towerType)
     {
         if (GameManager.ShowDebug)
         {
@@ -173,7 +177,7 @@ public class SelectionManager : MonoBehaviour
         GameManager.LevelManager.AddTowerOnTile(pos, newTower);
         Select(newTower);
     }
-    public void OnTowerSellClick()
+    private void OnTowerSellClick()
     {
         if (GameManager.ShowDebug)
         {
@@ -187,7 +191,7 @@ public class SelectionManager : MonoBehaviour
         Destroy(selectedTower.gameObject);
         DeselectAll();
     }
-    public void OnTowerUpgradeClick()
+    private void OnTowerUpgradeClick()
     {
         if (GameManager.ShowDebug)
         {
@@ -250,7 +254,6 @@ public class SelectionManager : MonoBehaviour
 
     public void Update()
     {
-        // To prevent clicking through the UI
         if (EventSystem.current.IsPointerOverGameObject()) return;
 
         RaycastHit hit;
@@ -270,6 +273,7 @@ public class SelectionManager : MonoBehaviour
                 // If the user clicks on something
                 if (clickedDown == clickedUp)
                 {
+
                     if (selectedTower)
                     {
                         if (tower && selectedTower == tower)
@@ -288,16 +292,11 @@ public class SelectionManager : MonoBehaviour
                     }
                     else if (selectedBrick)
                     {
-                        if (brick && brick == selectedBrick)
-                        {
-                            OnVoidClick();
-                            return;
-                        }
-                        else if (tower)
+                        if (tower)
                         {
                             OnObjectClick(tower);
                         }
-                        else if (brick)
+                        else
                         {
                             OnVoidClick();
                         }

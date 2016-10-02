@@ -57,7 +57,6 @@ public class ItemCostUIScript : MonoBehaviour {
         EventManager.MoneyUpdate += OnMoneyUpdate;
         gameObject.SetActive(true);
     }
-
     private void OnMoneyUpdate(int newMoney)
     {
         if (newMoney < cost)
@@ -69,11 +68,9 @@ public class ItemCostUIScript : MonoBehaviour {
             ItemState = State.Available;
         }
     }
-
     public void Hide()
     {
         EventManager.MoneyUpdate -= OnMoneyUpdate;
-
         gameObject.SetActive(false);
     }
 }

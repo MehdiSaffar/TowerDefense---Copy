@@ -99,7 +99,6 @@ public class WaveSpawner : MonoBehaviour
                     OnWaveFinished();
                 }
             }
-
         }
     }
 

@@ -8,6 +8,8 @@ obj/
 Build
 Library/
 *.unity
+*.anim
+*.controller
 *.meta
 *.asset
 *.exr

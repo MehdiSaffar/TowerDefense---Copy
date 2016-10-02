@@ -69,11 +69,12 @@ public class TowerSelectionUIScript : MonoBehaviour {
         }
 
         currentTower = tower;
-        EventManager.MoneyUpdate += OnMoneyUpdate;
-        gameObject.SetActive(true);
-        OnMoneyUpdate(GameManager.Player.Money); // Check Update stuff
         sellCost.Cost = tower.GetSellPrice();
+        CheckUpgrade(GameManager.Player.Money);
         SetAimBehaviour(tower.aimBehaviour);
+
+        EventManager.MoneyUpdate += CheckUpgrade;
+        gameObject.SetActive(true);
     }
     public void Hide()
     {
@@ -83,13 +84,12 @@ public class TowerSelectionUIScript : MonoBehaviour {
             Debug.Log(Time.frameCount + " " + trace.GetFrame(0).GetMethod().Name);
         }
 
-        gameObject.SetActive(false);
-
-        EventManager.MoneyUpdate -= OnMoneyUpdate;
-
         currentTower = null;
+
+        EventManager.MoneyUpdate -= CheckUpgrade;
+        gameObject.SetActive(false);
     }
-    public void OnMoneyUpdate(int newMoney)
+    public void CheckUpgrade(int newMoney)
     {
         bool active = currentTower && currentTower.NextUpgradeExists();
         upgradeButton.gameObject.SetActive(active);
@@ -97,14 +97,6 @@ public class TowerSelectionUIScript : MonoBehaviour {
         {
             upgradeCost.Show();
             upgradeCost.Cost = currentTower.GetNextUpgrade().cost;
-            if(GameManager.Player.CanBuy(currentTower.GetNextUpgrade().cost))
-            {
-                upgradeCost.ItemState = ItemCostUIScript.State.Available;
-            }
-            else
-            {
-                upgradeCost.ItemState = ItemCostUIScript.State.InsufficientFunds;
-            }
         }
         else
         {
