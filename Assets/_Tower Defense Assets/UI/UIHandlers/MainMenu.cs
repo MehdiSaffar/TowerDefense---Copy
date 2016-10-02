@@ -9,7 +9,7 @@ namespace UI
 
         public void TriggerPlayClick()
         {
-            PlayClick();
+            if(PlayClick != null) PlayClick();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (c) 2016 Made With Mosnter Love (Pty) Ltd
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -56,10 +56,11 @@ namespace MonsterLove.StateMachine
 		private StateMapping destinationState;
 
 		private Dictionary<object, StateMapping> stateLookup;
+#pragma warning disable 0414
+        private readonly string[] ignoredNames = new[] { "add", "remove", "get", "set" };
+#pragma warning restore 0414
 
-		private readonly string[] ignoredNames = new[] { "add", "remove", "get", "set" };
-
-		private bool isInTransition = false;
+        private bool isInTransition = false;
 		private IEnumerator currentTransition;
 		private IEnumerator exitRoutine;
 		private IEnumerator enterRoutine;

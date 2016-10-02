@@ -2,7 +2,10 @@ using UnityEngine;
 using System.Collections;
 
 public class MainMenuState : MonoBehaviour {
-    private UI.MainMenu UIScript;
+#pragma warning disable 0649
+    public UI.MainMenu UIScript;
+#pragma warning restore 0649
+
     public AudioClip backgroundMusic;
 
     public void OnPlayClick()
@@ -15,14 +18,14 @@ public class MainMenuState : MonoBehaviour {
     }
     public void Enter()
     {
-        UIScript.gameObject.SetActive(true);
+        UIScript.isOpen = true;
         if (GameManager.Fsm.LastState != GameManager.States.MainEntry)
             GameManager.LevelManager.UnbuildLevel();
-        GameManager.SoundManager.SetMusic(backgroundMusic);
-        GameManager.SoundManager.PlayMusic();
+        SoundManager.SetMusic(backgroundMusic);
+        SoundManager.PlayMusic();
     }
     public void Exit()
     {
-        UIScript.gameObject.SetActive(false);
+        UIScript.isOpen = false;
     }
 }

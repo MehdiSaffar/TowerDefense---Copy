@@ -3,7 +3,7 @@ using UnityEngine;
 public class LevelLoseState : MonoBehaviour
 {
     private AudioSource audioSource;
-    private UI.LevelLoseMenu UIScript;
+    public UI.LevelLoseMenu UIScript;
 
     public AudioClip sound;
 

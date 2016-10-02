@@ -24,17 +24,11 @@ public class LevelSelectState : MonoBehaviour
     public string levelSelectionDataFilename;
     public LevelSelectionData data;
 
-    private UI.LevelSelection UIScript;
-    [SerializeField] private AudioClip onLockedLevelClick;
+#pragma warning disable 0649
+    public UI.LevelSelection UIScript;
+#pragma warning restore 0649
 
-    void Awake()
-    {
-        data = null;
-    }
-    void Start()
-    {
-        data = null;
-    }
+    [SerializeField] private AudioClip onLockedLevelClick;
 
     private void OnLevelItemClick(int levelId, bool locked)
     {
@@ -42,7 +36,7 @@ public class LevelSelectState : MonoBehaviour
         if(locked)
         {
             Debug.Log("You have not unlocked level " + levelInfo.name + " yet!");
-            GameManager.SoundManager.RandomizeFx(onLockedLevelClick);
+            SoundManager.RandomizeFx(onLockedLevelClick);
             return;
         }
         GameManager.LevelManager.LoadLevel(levelInfo.levelPath);
@@ -52,7 +46,7 @@ public class LevelSelectState : MonoBehaviour
 
     public void Enter()
     {
-        if (data == null)
+        if (data.levels.Count == 0)
         {
             if (!LoadData())
             {
@@ -67,13 +61,13 @@ public class LevelSelectState : MonoBehaviour
             UIScript.UpdateLocked();
         }
         UIScript.LevelItemClick += OnLevelItemClick;
-        UIScript.gameObject.SetActive(true);
+        UIScript.isOpen = true;
     }
     public void Exit()
     {
         UIScript.LevelItemClick -= OnLevelItemClick;
-        UIScript.gameObject.SetActive(false);
-        GameManager.SoundManager.StopMusic();
+        UIScript.isOpen = true;
+        SoundManager.StopMusic();
     }
     public bool LoadData()
     {

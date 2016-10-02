@@ -3,19 +3,20 @@ using UnityEngine.UI;
 
 public class EditState : MonoBehaviour
 {
-    public Button playButton;
+#pragma warning disable 0649
+    public UI.UIElement playButton;
     public UI.Money money;
+#pragma warning restore 0649
 
     public AudioClip editLoop;
     public AudioClip onSpawn;
 
     public void Enter()
     {
-        GameManager.SoundManager.SetMusic(editLoop);
-        GameManager.SoundManager.PlayMusic();
+        SoundManager.SetMusic(editLoop);
+        SoundManager.PlayMusic();
 
         money.isOpen = true;
-        playButton.gameObject.SetActive(true);
 
         switch (GameManager.Fsm.LastState)
         {
@@ -31,14 +32,14 @@ public class EditState : MonoBehaviour
                 break;
         }
 
-        playButton.gameObject.SetActive(GameManager.LevelManager.towerList.transform.childCount > 0);
-        playButton.onClick.AddListener(OnPlayClick);
+        playButton.isOpen = GameManager.LevelManager.towerList.transform.childCount > 0;
+        playButton.GetComponent<Button>().onClick.AddListener(OnPlayClick);
 
         GameManager.LevelManager.TowerPlaced += OnTowerPlaced;
     }
     private void OnTowerPlaced()
     {
-        playButton.gameObject.SetActive(true);
+        playButton.isOpen = true;
     }
     public void OnPlayClick()
     {
@@ -46,10 +47,10 @@ public class EditState : MonoBehaviour
     }
     public void Exit()
     {
-        GameManager.SoundManager.StopMusic();
+        SoundManager.StopMusic();
 
-        playButton.gameObject.SetActive(false);
-        playButton.onClick.RemoveListener(OnPlayClick);
+        playButton.GetComponent<Button>().onClick.RemoveListener(OnPlayClick);
+        playButton.isOpen = false;
 
         GameManager.LevelManager.TowerPlaced -= OnTowerPlaced;
 

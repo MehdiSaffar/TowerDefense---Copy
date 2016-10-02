@@ -3,10 +3,12 @@ using System.Collections;
 
 public class PauseState : MonoBehaviour
 {
-    private UI.PauseMenu pauseMenu;
+#pragma warning disable 0649
+    public UI.PauseMenu pauseMenu;
+#pragma warning restore 0649
+
     public void Start()
     {
-        pauseMenu = GUIManager.Instantiate(pauseMenu) as UI.PauseMenu;
         pauseMenu.KeepPlayingClick += OnKeepPlayingClick;
         pauseMenu.ReplayLevelClick += OnReplayLevelClick;
         pauseMenu.MainMenuClick    += OnMainMenuClick;

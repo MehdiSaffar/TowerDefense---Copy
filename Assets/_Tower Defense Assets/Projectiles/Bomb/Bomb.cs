@@ -107,7 +107,7 @@ public class Bomb : MonoBehaviour, IProjectile {
                 remainingDamage = enemy.TakeDamage(remainingDamage);
         }
         blastEffect = Instantiate(blastEffect, transform.position, blastEffect.transform.rotation) as GameObject;
-        GameManager.SoundManager.RandomizeFx(explosion);
+        SoundManager.RandomizeFx(explosion);
         Destroy(gameObject);
         enabled = false;
     }

@@ -7,7 +7,10 @@ public class SelectionManager : MonoBehaviour
 {
     [HideInInspector]
     public SelectionManager instance = null;
-    private UI.Selection UIScript;
+
+#pragma warning disable 0649
+    public UI.Selection UIScript;
+#pragma warning restore 0649
 
     [Header("Sound effects")]
     public AudioClip onPlaceNewTower;
@@ -101,7 +104,6 @@ public class SelectionManager : MonoBehaviour
         }
         selectedBrick = null;
         selectedTower = null;
-
     }
 
     void Awake()
@@ -202,10 +204,10 @@ public class SelectionManager : MonoBehaviour
         Tower upgradedTower = selectedTower.Upgrade();
         if (!upgradedTower)
         {
-            GameManager.SoundManager.RandomizeFx(onError);
+            SoundManager.RandomizeFx(onError);
             return;
         }
-        GameManager.SoundManager.RandomizeFx(onUpgrade);
+        SoundManager.RandomizeFx(onUpgrade);
 
         Select(upgradedTower);
         selectedTower = upgradedTower;

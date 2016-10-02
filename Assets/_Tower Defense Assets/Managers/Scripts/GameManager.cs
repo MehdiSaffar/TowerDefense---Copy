@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private TowerManager towerManager;
     [SerializeField] private EnemyManager enemyManager;
-    [SerializeField] private SoundManager soundManager;
     [SerializeField] private SelectionManager selectionManager;
 
     public static SelectionManager SelectionManager
@@ -44,13 +43,6 @@ public class GameManager : MonoBehaviour
         get
         {
             return instance.enemyManager;
-        }
-    }
-    public static SoundManager SoundManager
-    {
-        get
-        {
-            return instance.soundManager;
         }
     }
     public static PlayerController Player

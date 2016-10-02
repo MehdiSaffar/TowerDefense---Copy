@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class SoundManager : MonoBehaviour {
-    private SoundManager instance = null;
+    public static SoundManager instance = null;
 
     public AudioSource fxSource;
     public AudioSource musicSource;
@@ -27,30 +27,30 @@ public class SoundManager : MonoBehaviour {
         }
     }
 
-    public void PlaySingleFx(AudioClip fx)
+    public static void PlaySingleFx(AudioClip fx)
     {
-        fxSource.clip = fx;
-        fxSource.Play();
+        instance.fxSource.clip = fx;
+        instance.fxSource.Play();
     }
-	public void RandomizeFx(params AudioClip[] fxs)
+	public static void RandomizeFx(params AudioClip[] fxs)
     {
         int randomIndex = Random.Range(0, fxs.Length);
-        fxSource.clip = fxs[randomIndex];
-        fxSource.pitch = Random.Range(lowPitchRange, highPitchRange);
-        fxSource.PlayOneShot(fxs[randomIndex]);
+        instance.fxSource.clip = fxs[randomIndex];
+        instance.fxSource.pitch = Random.Range(instance.lowPitchRange, instance.highPitchRange);
+        instance.fxSource.PlayOneShot(fxs[randomIndex]);
     }
-    public void SetMusic(AudioClip music)
+    public static void SetMusic(AudioClip music)
     {
-        musicSource.clip = music;
+        instance.musicSource.clip = music;
     }
-    public void PlayMusic(float volume = 1.0f, bool loop = true)
+    public static void PlayMusic(float volume = 1.0f, bool loop = true)
     {
-        musicSource.volume = volume;
-        musicSource.loop = loop;
-        musicSource.Play();
+        instance.musicSource.volume = volume;
+        instance.musicSource.loop = loop;
+        instance.musicSource.Play();
     }
-    public void StopMusic()
+    public static void StopMusic()
     {
-        musicSource.Stop();
+        instance.musicSource.Stop();
     }
 }

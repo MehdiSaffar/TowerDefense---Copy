@@ -45,7 +45,6 @@ public class WaveSpawner : MonoBehaviour
     }
     private int waveIndex;
     private int waveletIndex;
-    private int waveletRunningCount;
 
     public void Start()
     {
@@ -56,7 +55,6 @@ public class WaveSpawner : MonoBehaviour
 
         WaveIndex = 0;
         waveletIndex = 0;
-        waveletRunningCount = 0;
 
         Health = 7;
         askedToSpawn = false;

@@ -49,7 +49,7 @@ public class Canon : Tower {
                         _muzzleFire[i].Play();
                     }
                 }
-                GameManager.SoundManager.RandomizeFx(onFire);
+                SoundManager.RandomizeFx(onFire);
             }
         }
     }

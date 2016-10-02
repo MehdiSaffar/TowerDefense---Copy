@@ -48,7 +48,7 @@ public class Turret : Tower
                     _bullet.enemy = target;
                     if(muzzleFire) _muzzleFire[i].Play();
                 }
-                GameManager.SoundManager.RandomizeFx(onFire);
+                SoundManager.RandomizeFx(onFire);
             }
         }
     }

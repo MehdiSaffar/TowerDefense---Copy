@@ -3,7 +3,10 @@ using System.Collections;
 
 public class LevelWinState : MonoBehaviour
 {
-    private UI.LevelWinMenu UIScript;
+#pragma warning disable 0649
+    public UI.LevelWinMenu UIScript;
+#pragma warning restore 0649
+
     public AudioClip sound;
     public void OnMainMenuClick()
     {
@@ -16,7 +19,7 @@ public class LevelWinState : MonoBehaviour
     public void Enter()
     {
         UIScript.isOpen = true;
-        GameManager.SoundManager.RandomizeFx(sound);
+        SoundManager.RandomizeFx(sound);
 
         UIScript.MainMenuClick += OnMainMenuClick;
         UIScript.ReplayLevelClick += OnReplayLevelClick;

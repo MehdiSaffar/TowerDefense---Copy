@@ -9,7 +9,9 @@ public class HighlightPostProcess : MonoBehaviour {
     RenderTargetIdentifier m_rtID;
     CommandBuffer m_renderBuffer;
     public Material m_highlightMaterial;
+#pragma warning disable 0649
     RenderTexture m_renderTexture;
+#pragma warning restore 0649
     BlurOptimized m_blur;
 
     public List<Highlightable> highlightedObjects;
