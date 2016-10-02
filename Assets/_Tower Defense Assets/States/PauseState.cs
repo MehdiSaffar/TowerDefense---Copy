@@ -3,17 +3,17 @@ using System.Collections;
 
 public class PauseState : MonoBehaviour
 {
-    private PauseUIScript UIScript;
+    private UI.PauseMenu pauseMenu;
     public void Start()
     {
-        UIScript = GUIManager.PauseMenu.GetComponent<PauseUIScript>();
-        UIScript.KeepPlayingClick += OnKeepPlayingClick;
-        UIScript.ReplayLevelClick += OnReplayLevelClick;
-        UIScript.MainMenuClick += OnMainMenuClick;
+        pauseMenu = GUIManager.Instantiate(pauseMenu) as UI.PauseMenu;
+        pauseMenu.KeepPlayingClick += OnKeepPlayingClick;
+        pauseMenu.ReplayLevelClick += OnReplayLevelClick;
+        pauseMenu.MainMenuClick    += OnMainMenuClick;
     }
     public void Enter()
     {
-        UIScript.gameObject.SetActive(true);
+        pauseMenu.isOpen = true;
     }
     public void OnReplayLevelClick()
     {
@@ -30,6 +30,6 @@ public class PauseState : MonoBehaviour
     }
     public void Exit()
     {
-        UIScript.gameObject.SetActive(false);
+        pauseMenu.isOpen = false;
     }
 }

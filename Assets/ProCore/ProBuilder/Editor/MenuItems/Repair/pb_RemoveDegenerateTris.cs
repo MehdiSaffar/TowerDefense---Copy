@@ -17,7 +17,7 @@ namespace ProBuilder2.Actions
 		public static void MenuRemoveDegenerateTriangles()
 		{
 			int count = 0;
-			foreach(pb_Object pb in pbUtil.GetComponents<pb_Object>(Selection.transforms))
+			foreach(pb_Object pb in pbUtil.GetComponents<pb_Object>(UnityEditor.Selection.transforms))
 			{
 				pb.ToMesh();
 

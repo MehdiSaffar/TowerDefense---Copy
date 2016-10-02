@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -116,7 +116,7 @@ namespace Borodar.RainbowFolders.Editor
 
         private static void ChangeSelectedFoldersIcons(FolderIconPair icons)
         {
-            Selection.assetGUIDs.ToList().ForEach(
+            UnityEditor.Selection.assetGUIDs.ToList().ForEach(
                 assetGuid =>
                 {
                     var assetPath = AssetDatabase.GUIDToAssetPath(assetGuid);
@@ -136,7 +136,7 @@ namespace Borodar.RainbowFolders.Editor
 
         private static void RevertSelectedFoldersToDefault()
         {
-            Selection.assetGUIDs.ToList().ForEach(
+            UnityEditor.Selection.assetGUIDs.ToList().ForEach(
                 assetGuid =>
                 {
                     var assetPath = AssetDatabase.GUIDToAssetPath(assetGuid);

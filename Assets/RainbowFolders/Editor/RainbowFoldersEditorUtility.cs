@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -40,7 +40,7 @@ namespace Borodar.RainbowFolders.Editor
             }
             else
             {
-                path = AssetDatabase.GetAssetPath(Selection.activeObject);
+                path = AssetDatabase.GetAssetPath(UnityEditor.Selection.activeObject);
 
                 if (string.IsNullOrEmpty(path))
                 {
@@ -57,7 +57,7 @@ namespace Borodar.RainbowFolders.Editor
             AssetDatabase.CreateAsset(asset, assetPathAndName);
             AssetDatabase.SaveAssets();
             EditorUtility.FocusProjectWindow();
-            Selection.activeObject = asset;
+            UnityEditor.Selection.activeObject = asset;
         }
     }
 }

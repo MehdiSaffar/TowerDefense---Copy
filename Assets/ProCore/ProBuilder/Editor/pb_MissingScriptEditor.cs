@@ -148,7 +148,7 @@ namespace ProBuilder2.EditorCommon
 							continue;
 						}
 
-						Selection.activeObject = go;
+                        UnityEditor.Selection.activeObject = go;
 
 						return;
 					}

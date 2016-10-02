@@ -26,7 +26,7 @@ namespace ProBuilder2.Actions
 		[MenuItem("Tools/" + pb_Constant.PRODUCT_NAME + "/Geometry/Extrude with Translation %e", false,  pb_Constant.MENU_GEOMETRY + pb_Constant.MENU_GEOMETRY_FACE + 1)]
 		public static void Extrude()
 		{
-			pb_Menu_Commands.MenuExtrude(pbUtil.GetComponents<pb_Object>(Selection.transforms));
+            pb_Menu_Commands.MenuExtrude(pbUtil.GetComponents<pb_Object>(UnityEditor.Selection.transforms));
 		}
 	}
 }

@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour {
     [Header("FX")]
     [SerializeField] protected ParticleSystem onKill;
     [SerializeField]
-    protected WorldHealthBarUIScript healthBar;
+    protected UI.WorldHealthBar healthBar;
     [SerializeField] protected Vector3 healthBarWorldOffset;
 
     [HideInInspector] public float distanceWalked;
@@ -28,12 +28,11 @@ public class Enemy : MonoBehaviour {
     public void Start()
     {
         GameManager.Fsm.Changed += Fsm_Changed;
-        healthBar = Instantiate(GUIManager.WorldHealthBar.gameObject).GetComponent<WorldHealthBarUIScript>();
-        healthBar.transform.SetParent(GUIManager.instance.transform);
-        healthBar.gameObject.SetActive(true);
+        healthBar = GUIManager.Instantiate(healthBar) as UI.WorldHealthBar;
         healthBar.worldOffset = healthBarWorldOffset;
         healthBar.currentObject = gameObject;
         healthBar.SetMaxHealth(health);
+        healthBar.isOpen = true;
     }
     private void Fsm_Changed(GameManager.States state)
     {
@@ -44,7 +43,6 @@ public class Enemy : MonoBehaviour {
         GameManager.Fsm.Changed -= Fsm_Changed;
         Destroy(healthBar.gameObject);
     }
-
     public void Update()
     {
         if (waypointIndex >= waypoints.Length)

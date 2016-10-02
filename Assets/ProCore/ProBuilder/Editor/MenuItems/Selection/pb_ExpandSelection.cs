@@ -24,13 +24,13 @@ namespace ProBuilder2.Actions
 		[MenuItem("Tools/" + pb_Constant.PRODUCT_NAME + "/Selection/Grow Selection &g", false, pb_Constant.MENU_SELECTION + 1)]
 		public static void MenuGrowSelection()
 		{
-			pb_Menu_Commands.MenuGrowSelection(pbUtil.GetComponents<pb_Object>(Selection.transforms));
+            pb_Menu_Commands.MenuGrowSelection(pbUtil.GetComponents<pb_Object>(UnityEditor.Selection.transforms));
 		}
 
 		[MenuItem("Tools/" + pb_Constant.PRODUCT_NAME + "/Selection/Shrink Selection &#g", false, pb_Constant.MENU_SELECTION + 1)]
 		public static void MenuShrinkSelection()
 		{
-			pb_Menu_Commands.MenuShrinkSelection(pbUtil.GetComponents<pb_Object>(Selection.transforms));
+            pb_Menu_Commands.MenuShrinkSelection(pbUtil.GetComponents<pb_Object>(UnityEditor.Selection.transforms));
 		}
 	}
 }

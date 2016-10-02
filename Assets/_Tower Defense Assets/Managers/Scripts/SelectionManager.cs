@@ -7,7 +7,7 @@ public class SelectionManager : MonoBehaviour
 {
     [HideInInspector]
     public SelectionManager instance = null;
-    private SelectionUIScript UIScript;
+    private UI.Selection UIScript;
 
     [Header("Sound effects")]
     public AudioClip onPlaceNewTower;
@@ -121,7 +121,6 @@ public class SelectionManager : MonoBehaviour
         GameManager.Fsm.Changed += Fsm_Changed;
         GameManager.LevelManager.LevelLoaded += Reset;
 
-        UIScript = GUIManager.SelectionUI;
         UIScript.TowerBuyClick += OnTowerBuyClick;
         UIScript.SellClick += OnTowerSellClick;
         UIScript.UpgradeClick += OnTowerUpgradeClick;

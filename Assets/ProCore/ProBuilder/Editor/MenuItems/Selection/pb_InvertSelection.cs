@@ -25,7 +25,7 @@ namespace ProBuilder2.Actions
 		[MenuItem("Tools/" + pb_Constant.PRODUCT_NAME + "/Selection/Invert Face Selection %#i", false, pb_Constant.MENU_SELECTION + 0)]
 		public static void InvertFaceSelection()
 		{
-			pb_Menu_Commands.MenuInvertSelection( pbUtil.GetComponents<pb_Object>(Selection.transforms) );
+            pb_Menu_Commands.MenuInvertSelection(pbUtil.GetComponents<pb_Object>(UnityEditor.Selection.transforms) );
 			EditorWindow.FocusWindowIfItsOpen(typeof(SceneView));
 		}
 	}

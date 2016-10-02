@@ -13,13 +13,13 @@ namespace ProBuilder2.Actions
 		[MenuItem("Tools/" + pb_Constant.PRODUCT_NAME + "/Actions/Generate UV2 - Selection", true, pb_Constant.MENU_ACTIONS + 20)]
 		public static bool VerifyGenerateUV2Selection()
 		{
-			return pbUtil.GetComponents<pb_Object>(Selection.transforms).Length > 0;
+			return pbUtil.GetComponents<pb_Object>(UnityEditor.Selection.transforms).Length > 0;
 		}
 
 		[MenuItem("Tools/" + pb_Constant.PRODUCT_NAME + "/Actions/Generate UV2 - Selection", false, pb_Constant.MENU_ACTIONS + 20)]
 		public static void MenuGenerateUV2Selection()
 		{
-			pb_Object[] sel = Selection.transforms.GetComponents<pb_Object>();
+            pb_Object[] sel = UnityEditor.Selection.transforms.GetComponents<pb_Object>();
 
 			if( !Menu_GenerateUV2(sel) )
 				return;	/// user canceled

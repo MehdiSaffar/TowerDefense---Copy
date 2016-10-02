@@ -3,12 +3,8 @@ using System.Collections;
 
 public class LevelWinState : MonoBehaviour
 {
-    private LevelWinUIScript UIScript;
+    private UI.LevelWinMenu UIScript;
     public AudioClip sound;
-    void Start()
-    {
-        UIScript = GUIManager.LevelWinUI;
-    }
     public void OnMainMenuClick()
     {
         GameManager.Fsm.ChangeState(GameManager.States.MainMenu);
@@ -19,7 +15,7 @@ public class LevelWinState : MonoBehaviour
     }
     public void Enter()
     {
-        UIScript.gameObject.SetActive(true);
+        UIScript.isOpen = true;
         GameManager.SoundManager.RandomizeFx(sound);
 
         UIScript.MainMenuClick += OnMainMenuClick;
@@ -31,6 +27,6 @@ public class LevelWinState : MonoBehaviour
     {
         UIScript.MainMenuClick -= OnMainMenuClick;
         UIScript.ReplayLevelClick -= OnReplayLevelClick;
-        UIScript.gameObject.SetActive(false);
+        UIScript.isOpen = false;
     }
 }

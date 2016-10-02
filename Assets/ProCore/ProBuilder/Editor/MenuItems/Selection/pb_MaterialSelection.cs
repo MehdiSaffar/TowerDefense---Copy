@@ -24,21 +24,21 @@ namespace ProBuilder2.Actions
 		[MenuItem("Tools/" + pb_Constant.PRODUCT_NAME + "/Selection/Select All Faces With Material", false, pb_Constant.MENU_SELECTION + 2)]
 		public static void MenuSelectFacesWithMaterial()
 		{
-			foreach(pb_Object pb in pbUtil.GetComponents<pb_Object>(Selection.transforms))
+			foreach(pb_Object pb in pbUtil.GetComponents<pb_Object>(UnityEditor.Selection.transforms))
 			{
-				List<Material> mat = new List<Material>();
+                List<Material> mat = new List<Material>();
 				foreach(pb_Face f in pb.SelectedFaces)
 				{
 					mat.Add(f.material);
 				}
 
-				pb_Face[] faces = System.Array.FindAll(pb.faces, x => mat.Contains(x.material));
+                pb_Face[] faces = System.Array.FindAll(pb.faces, x => mat.Contains(x.material));
 
 				pb.SetSelectedFaces(faces);
 				if(pb_Editor.instance)
-					pb_Editor.instance.UpdateSelection();
-				
-				EditorWindow.FocusWindowIfItsOpen(typeof(SceneView));
+                    pb_Editor.instance.UpdateSelection();
+
+                EditorWindow.FocusWindowIfItsOpen(typeof(SceneView));
 			}
 		}
 
@@ -48,9 +48,9 @@ namespace ProBuilder2.Actions
 		[MenuItem("Tools/" + pb_Constant.PRODUCT_NAME + "/Selection/Select Faces with Vertex Colors", false, pb_Constant.MENU_SELECTION + 2)]
 		public static void MenuSelectFacesWithColor()
 		{
-			foreach(pb_Object pb in pbUtil.GetComponents<pb_Object>(Selection.transforms))
+			foreach(pb_Object pb in pbUtil.GetComponents<pb_Object>(UnityEditor.Selection.transforms))
 			{
-				HashSet<Color> cols = new HashSet<Color>();
+                HashSet<Color> cols = new HashSet<Color>();
 				
 				foreach(pb_Face f in pb.SelectedFaces)
 				{
@@ -58,13 +58,13 @@ namespace ProBuilder2.Actions
 						cols.Add(pb.colors[i]);
 				}
 
-				pb_Face[] faces = System.Array.FindAll(pb.faces, x => cols.Intersect(pbUtil.ValuesWithIndices(pb.colors, x.distinctIndices)).Count() > 0);
+                pb_Face[] faces = System.Array.FindAll(pb.faces, x => cols.Intersect(pbUtil.ValuesWithIndices(pb.colors, x.distinctIndices)).Count() > 0);
 
 				pb.SetSelectedFaces(faces);
 				if(pb_Editor.instance)
-					pb_Editor.instance.UpdateSelection();
-				
-				EditorWindow.FocusWindowIfItsOpen(typeof(SceneView));
+                    pb_Editor.instance.UpdateSelection();
+
+                EditorWindow.FocusWindowIfItsOpen(typeof(SceneView));
 			}
 		}
 	}

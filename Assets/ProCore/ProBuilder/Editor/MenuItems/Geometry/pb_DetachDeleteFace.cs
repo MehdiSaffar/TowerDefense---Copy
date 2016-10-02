@@ -31,7 +31,7 @@ namespace ProBuilder2.Actions
 		[MenuItem("Tools/" + pb_Constant.PRODUCT_NAME + "/Geometry/Delete Face (Backspace)", false, pb_Constant.MENU_GEOMETRY + pb_Constant.MENU_GEOMETRY_FACE + 5)]
 		public static void MenuDeleteFace()
 		{
-			pb_Menu_Commands.MenuDeleteFace(pbUtil.GetComponents<pb_Object>(Selection.transforms));
+            pb_Menu_Commands.MenuDeleteFace(pbUtil.GetComponents<pb_Object>(UnityEditor.Selection.transforms));
 		}
 	}
 }

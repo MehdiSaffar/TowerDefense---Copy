@@ -17,7 +17,7 @@ namespace ProBuilder2.Actions
 		public static void MenuRepairColors()
 		{
 			int count = 0;
-			foreach(pb_Object pb in pbUtil.GetComponents<pb_Object>(Selection.transforms))
+			foreach(pb_Object pb in pbUtil.GetComponents<pb_Object>(UnityEditor.Selection.transforms))
 			{
 				if( pb.colors == null || pb.colors.Length != pb.vertexCount )
 				{

@@ -4,21 +4,17 @@ using UnityEngine.UI;
 public class EditState : MonoBehaviour
 {
     public Button playButton;
+    public UI.Money money;
 
     public AudioClip editLoop;
     public AudioClip onSpawn;
 
-    public void Start()
-    {
-        playButton = GUIManager.PlayButton.GetComponent<Button>();
-    }
     public void Enter()
     {
         GameManager.SoundManager.SetMusic(editLoop);
         GameManager.SoundManager.PlayMusic();
 
-        //GUIManager.TowerSelectionPanel.gameObject.SetActive(true);
-        GUIManager.Money.gameObject.SetActive(true);
+        money.isOpen = true;
         playButton.gameObject.SetActive(true);
 
         switch (GameManager.Fsm.LastState)
@@ -40,12 +36,10 @@ public class EditState : MonoBehaviour
 
         GameManager.LevelManager.TowerPlaced += OnTowerPlaced;
     }
-
     private void OnTowerPlaced()
     {
         playButton.gameObject.SetActive(true);
     }
-
     public void OnPlayClick()
     {
         GameManager.Fsm.ChangeState(GameManager.States.Play);
@@ -59,7 +53,6 @@ public class EditState : MonoBehaviour
 
         GameManager.LevelManager.TowerPlaced -= OnTowerPlaced;
 
-        //GUIManager.TowerSelectionPanel.gameObject.SetActive(false);
-        GUIManager.Money.gameObject.SetActive(false);
+        money.isOpen = false;
     }
 }

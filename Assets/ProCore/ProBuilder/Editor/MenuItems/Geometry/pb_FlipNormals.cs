@@ -22,7 +22,7 @@ namespace ProBuilder2.Actions
 		[MenuItem("Tools/" + pb_Constant.PRODUCT_NAME + "/Geometry/Flip Face Normals &n", false,  pb_Constant.MENU_GEOMETRY + pb_Constant.MENU_GEOMETRY_FACE + 2)]
 		public static void FlipFaceNormals()
 		{
-			pb_Menu_Commands.MenuFlipNormals(pbUtil.GetComponents<pb_Object>(Selection.transforms));
+            pb_Menu_Commands.MenuFlipNormals(pbUtil.GetComponents<pb_Object>(UnityEditor.Selection.transforms));
 
 			EditorWindow.FocusWindowIfItsOpen(typeof(SceneView));
 		}	

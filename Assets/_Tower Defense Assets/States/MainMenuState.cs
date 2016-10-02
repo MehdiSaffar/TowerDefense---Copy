@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class MainMenuState : MonoBehaviour {
-    private MainMenuUIScript UIScript;
+    private UI.MainMenu UIScript;
     public AudioClip backgroundMusic;
 
     public void OnPlayClick()
@@ -11,7 +11,6 @@ public class MainMenuState : MonoBehaviour {
     }
     public void Start()
     {
-        UIScript = GUIManager.MainMenu;
         UIScript.PlayClick += OnPlayClick;
     }
     public void Enter()

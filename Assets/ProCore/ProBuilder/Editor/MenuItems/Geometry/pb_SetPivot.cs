@@ -17,13 +17,13 @@ namespace ProBuilder2.Actions
 		[MenuItem("Tools/" + pb_Constant.PRODUCT_NAME + "/Geometry/Set Pivot _%j", true,  pb_Constant.MENU_GEOMETRY + pb_Constant.MENU_GEOMETRY_USEINFERRED)]
 		public static bool VerifySetPivot()
 		{
-			return pb_Editor.instance != null && pbUtil.GetComponents<pb_Object>(Selection.transforms).Length > 0;
+			return pb_Editor.instance != null && pbUtil.GetComponents<pb_Object>(UnityEditor.Selection.transforms).Length > 0;
 		}
 
 		[MenuItem("Tools/" + pb_Constant.PRODUCT_NAME + "/Geometry/Set Pivot _%j", false,  pb_Constant.MENU_GEOMETRY + pb_Constant.MENU_GEOMETRY_USEINFERRED)]
 		static void init()
 		{
-			pb_Menu_Commands.MenuSetPivot(pbUtil.GetComponents<pb_Object>(Selection.transforms));
+            pb_Menu_Commands.MenuSetPivot(pbUtil.GetComponents<pb_Object>(UnityEditor.Selection.transforms));
 		}
 	}
 }

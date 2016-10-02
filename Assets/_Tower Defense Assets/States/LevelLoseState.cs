@@ -1,17 +1,15 @@
 using UnityEngine;
-using System.Collections;
 
 public class LevelLoseState : MonoBehaviour
 {
     private AudioSource audioSource;
-    private LevelLoseUIScript UIScript;
+    private UI.LevelLoseMenu UIScript;
 
     public AudioClip sound;
 
     void Start()
     {
         audioSource = Camera.main.GetComponent<AudioSource>();
-        UIScript = GUIManager.LevelLoseUI.GetComponent<LevelLoseUIScript>();
         UIScript.MainMenuClick += OnMainMenuClick;
         UIScript.ReplayLevelClick += OnReplayLevelClick;
     }
@@ -26,10 +24,10 @@ public class LevelLoseState : MonoBehaviour
     public void Enter()
     {
         audioSource.PlayOneShot(sound);
-        UIScript.gameObject.SetActive(true);
+        UIScript.isOpen = true;
     }
     public void Exit()
     {
-        UIScript.gameObject.SetActive(false);
+        UIScript.isOpen = false;
     }
 }

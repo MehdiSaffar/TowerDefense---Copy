@@ -22,9 +22,9 @@ public class LevelSelectionData
 public class LevelSelectState : MonoBehaviour
 {
     public string levelSelectionDataFilename;
-    /*[HideInInspector]*/ public LevelSelectionData data;
+    public LevelSelectionData data;
 
-    private LevelSelectionUIScript UIScript;
+    private UI.LevelSelection UIScript;
     [SerializeField] private AudioClip onLockedLevelClick;
 
     void Awake()
@@ -34,7 +34,6 @@ public class LevelSelectState : MonoBehaviour
     void Start()
     {
         data = null;
-        UIScript = GUIManager.LevelSelectionUI;
     }
 
     private void OnLevelItemClick(int levelId, bool locked)
@@ -76,7 +75,6 @@ public class LevelSelectState : MonoBehaviour
         UIScript.gameObject.SetActive(false);
         GameManager.SoundManager.StopMusic();
     }
-
     public bool LoadData()
     {
         Debug.Log("Sup");
@@ -119,5 +117,4 @@ public class LevelSelectState : MonoBehaviour
         }
         return true;
     }
-
 }

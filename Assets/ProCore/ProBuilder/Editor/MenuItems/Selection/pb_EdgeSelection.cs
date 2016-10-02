@@ -21,13 +21,13 @@ namespace ProBuilder2.Actions
 		[MenuItem("Tools/" + pb_Constant.PRODUCT_NAME + "/Selection/Edge Ring &r")]
 		public static void MenuEdgeRing()
 		{
-			pb_Menu_Commands.MenuRingSelection(pbUtil.GetComponents<pb_Object>(Selection.transforms));
+            pb_Menu_Commands.MenuRingSelection(pbUtil.GetComponents<pb_Object>(UnityEditor.Selection.transforms));
 		}
 
 		[MenuItem("Tools/" + pb_Constant.PRODUCT_NAME + "/Selection/Edge Loop &l")]
 		public static void MenuEdgeLoop()
 		{
-			pb_Menu_Commands.MenuLoopSelection(pbUtil.GetComponents<pb_Object>(Selection.transforms));
+            pb_Menu_Commands.MenuLoopSelection(pbUtil.GetComponents<pb_Object>(UnityEditor.Selection.transforms));
 		}
 	}
 }
