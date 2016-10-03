@@ -6,7 +6,7 @@ public class PlayState : MonoBehaviour
     public AudioClip onWaveBegin;
     public AudioClip onSpawn;
 
-    public Button pauseButton;
+    public UI.UIElement pauseButton;
     public UI.HealthBar healthBar;
     public UI.Money money;
     public UI.WaveIndicator waveIndicator;
@@ -16,11 +16,11 @@ public class PlayState : MonoBehaviour
     public void Enter()
     {
         // FIXME: Change pauseButton into UIElement ?
-        pauseButton.gameObject.SetActive(true);
+        pauseButton.isOpen = true;
         healthBar.isOpen = true;
         money.isOpen = true;
 
-        pauseButton.onClick.AddListener(OnPauseClick);
+        pauseButton.GetComponent<Button>().onClick.AddListener(OnPauseClick);
 
         EventManager.BaseDie += OnBaseDie;
 
@@ -38,15 +38,19 @@ public class PlayState : MonoBehaviour
             {
                 GameManager.LevelManager.waveSpawner.StartSpawning();
                 SoundManager.RandomizeFx(onWaveBegin);
+                waveIndicator.isOpen = false;
             }
         }
     }
     public void Exit()
     {
-        pauseButton.gameObject.SetActive(false);
-
+        pauseButton.isOpen = false;
         healthBar.isOpen = false;
         money.isOpen = false;
+        waveIndicator.isOpen = false;
+
+        pauseButton.GetComponent<Button>().onClick.RemoveListener(OnPauseClick);
+
     }
     public void OnBaseDie()
     {

@@ -23,6 +23,14 @@ namespace UI
                 {
                     animator.SetBool("isOpen", _isOpen);
                 }
+                if(_isOpen)
+                {
+                    OnOpen();
+                }
+                else
+                {
+                    OnClose();
+                }
             }
         }
         public virtual GUIManager.UILayer layer
@@ -37,6 +45,10 @@ namespace UI
                 transform.SetParent(GUIManager.layers[(int)_layer].transform);
             }
         }
+
+        protected virtual void OnOpen() { }
+        protected virtual void OnClose() { }
+
 
         void Awake()
         {

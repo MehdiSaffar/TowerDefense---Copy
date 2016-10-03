@@ -8,7 +8,7 @@ public class GUIManager : MonoBehaviour
     [HideInInspector] public static GUIManager instance = null;
     public enum UILayer
     {
-        Base,
+        InGame = 0,
         HUD,
         Menu,
     };
@@ -23,6 +23,16 @@ public class GUIManager : MonoBehaviour
 
         // Making sure the GUIManager persists accross levels
         if (Application.isPlaying) DontDestroyOnLoad(gameObject);
+
+        layers = new List<Transform>();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            layers.Add(transform.GetChild(i));
+            for (int j = 0; j < layers[i].childCount; j++)
+            {
+                layers[i].GetChild(j).GetComponent<UIElement>().layer = (UILayer)i;
+            }
+        }
     }
     public static UIElement Instantiate(UIElement _element)
     {

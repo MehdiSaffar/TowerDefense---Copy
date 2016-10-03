@@ -20,7 +20,7 @@ namespace UI
                 if (waveIndexText) waveIndexText.text = "Wave " + waveIndex.ToString();
             }
         }
-        public void Awake()
+        protected override void OnOpen()
         {
             WaveIndex = GameManager.LevelManager.waveSpawner.WaveIndex + 1;
             EventManager.WaveIndexUpdate += OnWaveIndexChange;

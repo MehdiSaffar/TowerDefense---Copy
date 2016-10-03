@@ -66,12 +66,11 @@ public class LevelSelectState : MonoBehaviour
     public void Exit()
     {
         UIScript.LevelItemClick -= OnLevelItemClick;
-        UIScript.isOpen = true;
+        UIScript.isOpen = false;
         SoundManager.StopMusic();
     }
     public bool LoadData()
     {
-        Debug.Log("Sup");
         if (string.IsNullOrEmpty(levelSelectionDataFilename))
         {
             Debug.LogError("You have not specified a level selection data filename.");

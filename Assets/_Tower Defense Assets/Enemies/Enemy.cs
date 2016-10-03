@@ -19,14 +19,12 @@ public class Enemy : MonoBehaviour {
     protected Vector3[] waypoints;
     protected int waypointIndex = 0;
 
-    public void Awake()
+    public void Start()
     {
         waypointEpsilon *= waypointEpsilon;
         distanceWalked = 0f;
         waypoints = GameManager.LevelManager.GetUseableWaypoints();
-    }
-    public void Start()
-    {
+
         GameManager.Fsm.Changed += Fsm_Changed;
         healthBar = GUIManager.Instantiate(healthBar) as UI.WorldHealthBar;
         healthBar.worldOffset = healthBarWorldOffset;
