@@ -74,6 +74,7 @@ namespace UI
                 iconGO.transform.localPosition = radius * (Vector3.up * Mathf.Sin(angle) + Vector3.right * Mathf.Cos(angle));
                 iconGO.AddComponent<Image>().sprite = _icon;
                 iconGO.AddComponent<Button>().onClick.AddListener(delegate { TriggerBuyClick(tower.data.type); });
+                iconGO.transform.localScale *= 2;
 
                 GameObject itemCostGO = Instantiate(itemCost.gameObject);
                 itemCostGO.SetActive(true);
@@ -82,6 +83,8 @@ namespace UI
                 itemCostGO.transform.SetParent(iconGO.transform);
                 itemCostGO.transform.localPosition = itemCostOffset;
                 itemCostGO.GetComponent<ItemCost>().Cost = cost;
+                itemCostGO.transform.localScale *= 2;
+
             }
         }
     }

@@ -55,8 +55,6 @@ namespace UI
         private Vector3 initialScale;
         [SerializeField]
         private float lowestScale;
-        [SerializeField]
-        private float highestScale;
 
         void Awake()
         {
@@ -131,6 +129,15 @@ namespace UI
             foreach (var render in GetComponentsInChildren<Renderer>())
                 render.enabled = currentObject.GetComponentInChildren<Renderer>().isVisible;
             transform.position = Camera.main.WorldToScreenPoint(currentObject.transform.position);
+        }
+        private Bounds GetMaxBounds(GameObject obj)
+        {
+            var b = new Bounds(obj.transform.position, Vector3.zero);
+            foreach (var r in obj.GetComponentsInChildren<Renderer>())
+            {
+                b.Encapsulate(r.bounds);
+            }
+            return b;
         }
     }
 }

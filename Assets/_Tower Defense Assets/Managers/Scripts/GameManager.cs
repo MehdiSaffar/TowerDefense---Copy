@@ -146,9 +146,7 @@ public class GameManager : MonoBehaviour
 
         // Creating finite state machine
         fsm = StateMachine<States>.Initialize(instance);
-#if (UNITY_ANDROID || UNITY_IOS)
         LevelManager.CopyLevelsToDisk(1, 2);
-#endif
     }
 
     public void Start()

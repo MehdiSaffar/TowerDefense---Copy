@@ -74,13 +74,13 @@ public class Bullet : MonoBehaviour, IProjectile {
         GameManager.Fsm.Changed -= Fsm_Changed;
     }
 
-    void Update () {
+    void FixedUpdate () {
         if(enemy == null)
         {
             Destroy(gameObject);
             return;
         }
-        elapsedTime += Time.deltaTime;
+        elapsedTime += Time.fixedDeltaTime;
         if(elapsedTime >= lifetime)
         {
             Destroy(gameObject);
@@ -92,7 +92,7 @@ public class Bullet : MonoBehaviour, IProjectile {
             Destroy(gameObject);
             return;
         }
-        transform.position += transform.forward * speed * Time.deltaTime;
+        transform.position += transform.forward * speed * Time.fixedDeltaTime;
 	}
     void OnBecameInvisible() {
         Destroy(gameObject);

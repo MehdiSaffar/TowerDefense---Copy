@@ -221,8 +221,8 @@ public class LevelManager : MonoBehaviour {
         Combine(placedNormal, PlacedNormals);
         Combine(placedPath, PlacedPaths);
 
-        Camera.main.GetComponent<CameraController>().target = centerPoint;
-        Camera.main.GetComponent<CameraController>().limits = new Rect(
+        Camera.main.GetComponent<CameraController>().currentTarget = centerPoint;
+        Camera.main.GetComponent<CameraController>().levelLimits = new Rect(
             centerPoint.x - (currentLevelData.width / 2f + edgeThickness /2f) * brickSize.x,
             centerPoint.z - (currentLevelData.length / 2f + edgeThickness /2f)* brickSize.z,
             (currentLevelData.width + edgeThickness)* brickSize.x,

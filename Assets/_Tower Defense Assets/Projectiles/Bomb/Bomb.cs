@@ -85,9 +85,9 @@ public class Bomb : MonoBehaviour, IProjectile {
     {
         GameManager.Fsm.Changed -= Fsm_Changed;
     }
-    void Update () {
-        transform.position += transform.forward * speed * Time.deltaTime;
-        distanceFlown += speed * Time.deltaTime;
+    void FixedUpdate () {
+        transform.position += transform.forward * speed * Time.fixedDeltaTime;
+        distanceFlown += speed * Time.fixedDeltaTime;
 
         if(distanceFlown / targetDistance >= 0.8)
             transform.localScale = oldScale * Mathf.Lerp(1, 4, distanceFlown / targetDistance);

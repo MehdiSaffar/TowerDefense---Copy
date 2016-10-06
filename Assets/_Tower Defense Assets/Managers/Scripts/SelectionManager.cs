@@ -61,6 +61,8 @@ public class SelectionManager : MonoBehaviour
         tower.rangeGizmo.SetActive(true);
         UIScript.SetTower(tower);
 
+        Camera.main.GetComponent<CameraController>().FlyToObject(tower.gameObject);
+
         selectedTower = tower;
     }
     private void Deselect(Tower tower)
@@ -83,6 +85,8 @@ public class SelectionManager : MonoBehaviour
     {
         DeselectAll();
         UIScript.SetBrick(brick);
+        Camera.main.GetComponent<CameraController>().FlyToObject(brick.gameObject);
+
         selectedBrick = brick;
     }
     private void Deselect(Brick brick)

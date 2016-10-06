@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour {
         GameManager.Fsm.Changed -= Fsm_Changed;
         Destroy(healthBar.gameObject);
     }
-    public void Update()
+    public void FixedUpdate()
     {
         if (waypointIndex >= waypoints.Length)
         {
@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour {
         if (dir.sqrMagnitude <= waypointEpsilon) waypointIndex++;
         
         transform.LookAt(waypoints[waypointIndex]);
-        distanceWalked += speed * Time.deltaTime;
+        distanceWalked += speed * Time.fixedDeltaTime;
         transform.position += dir.normalized * speed * Time.deltaTime;
     }
 

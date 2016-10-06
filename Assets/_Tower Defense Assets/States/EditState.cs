@@ -36,7 +36,14 @@ public class EditState : MonoBehaviour
         playButton.GetComponent<Button>().onClick.AddListener(OnPlayClick);
 
         GameManager.LevelManager.TowerPlaced += OnTowerPlaced;
+        EventManager.TowerSell += OnTowerSell;
     }
+
+    private void OnTowerSell()
+    {
+        playButton.isOpen = GameManager.LevelManager.towerList.transform.childCount > 0;
+    }
+
     private void OnTowerPlaced()
     {
         playButton.isOpen = true;
